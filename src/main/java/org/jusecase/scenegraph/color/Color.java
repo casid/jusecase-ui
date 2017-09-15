@@ -70,4 +70,9 @@ public final class Color {
     public int hashCode() {
         return bgra;
     }
+
+    @Override
+    public String toString() {
+        return "Color{" + "r=" + getRed() + "g=" + getGreen() + "b=" + getBlue() + "a=" + getAlpha() + "}";
+    }
 }
