@@ -16,6 +16,10 @@ public final class Matrix3x2 {
         );
     }
 
+    public static Matrix3x2 orthoProjection(double width, double height) {
+        return new Matrix3x2(2 / width, 0, 0, -2 / height, -1, 1);
+    }
+
     public final double a;
     public final double b;
     public final double c;
