@@ -23,9 +23,9 @@ public class Element extends Node2d {
 
     @SuppressWarnings("unchecked")
     public void setStyle(Style style) {
-        this.style = style;
-        style.init(this);
-        style.update();
+        this.style = style.clone();
+        this.style.init(this);
+        this.style.update();
     }
 
     @Override

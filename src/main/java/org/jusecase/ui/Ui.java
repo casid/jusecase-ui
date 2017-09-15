@@ -26,7 +26,7 @@ public class Ui extends Element {
         if (element.getStyle() == null) {
             Style style = styleByClass.get(element.getClass());
             if (style != null) {
-                element.setStyle((Style)style.clone());
+                element.setStyle(style);
             }
         }
     }

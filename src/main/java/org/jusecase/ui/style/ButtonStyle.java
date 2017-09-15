@@ -30,6 +30,7 @@ public abstract class ButtonStyle<N extends Node2d> extends Style<Button> {
         clone.active = (N)active.clone();
         clone.pressed = (N)pressed.clone();
         clone.hovered = (N)hovered.clone();
+        clone.current = null;
 
         return clone;
     }

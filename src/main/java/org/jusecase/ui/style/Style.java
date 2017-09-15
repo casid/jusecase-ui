@@ -11,10 +11,11 @@ public abstract class Style<E extends Element> implements Cloneable {
 
     public abstract void update();
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Object clone() {
+    public Style<E> clone() {
         try {
-            return super.clone();
+            return (Style<E>) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException("Most unexpected - clone didn't work", e);
         }
