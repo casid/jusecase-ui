@@ -71,6 +71,12 @@ public class ColorTest {
     }
 
     @Test
+    public void hex_white_alpha() {
+        color = new Color("#fff", 0.1);
+        thenColorIs(1, 1, 1, 0.1);
+    }
+
+    @Test
     public void hex_blue_short() {
         color = new Color("#00f");
         thenColorIs(0, 0, 1, 1);
