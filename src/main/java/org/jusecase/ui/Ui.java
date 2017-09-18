@@ -51,6 +51,7 @@ public class Ui extends Element {
                 touchedElementsByTouchId.remove(touchEvent.id);
             }
 
+            touchEvent.element = element;
             element.onTouch.dispatch(touchEvent);
             return touchedElement == null || element == touchedElement;
         }

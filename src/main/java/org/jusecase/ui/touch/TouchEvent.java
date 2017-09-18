@@ -1,5 +1,7 @@
 package org.jusecase.ui.touch;
 
+import org.jusecase.ui.elements.Element;
+
 public class TouchEvent implements Cloneable {
     public long id;
     public double x;
@@ -7,6 +9,7 @@ public class TouchEvent implements Cloneable {
     public double deltaX;
     public double deltaY;
     public TouchPhase phase;
+    public Element element;
 
     @Override
     public TouchEvent clone() {
