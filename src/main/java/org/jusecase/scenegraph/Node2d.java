@@ -14,6 +14,9 @@ public class Node2d extends Node {
     private double width;
     private double height;
 
+    private double pivotX;
+    private double pivotY;
+
     private Matrix3x2 localMatrix = Matrix3x2.IDENTITY;
     private Matrix3x2 globalMatrix = Matrix3x2.IDENTITY;
     private Matrix3x2 globalMatrixInverse = Matrix3x2.IDENTITY;
@@ -55,8 +58,10 @@ public class Node2d extends Node {
     }
 
     private void resetMatrices() {
-        this.localMatrix = null;
-        this.visitAll(Node2d.class, Node2d::resetGlobalMatrix);
+        if (localMatrix != null || globalMatrix != null) {
+            localMatrix = null;
+            visitAll(Node2d.class, Node2d::resetGlobalMatrix);
+        }
     }
 
     private void resetGlobalMatrix() {
@@ -103,8 +108,10 @@ public class Node2d extends Node {
 
     public Matrix3x2 getLocalMatrix() {
         if (localMatrix == null) {
+            double pivotX = this.pivotX * width;
+            double pivotY = this.pivotY * height;
             if (rotation == 0) {
-                localMatrix = new Matrix3x2(scaleX, 0.0, 0.0, scaleY, x, y);
+                localMatrix = new Matrix3x2(scaleX, 0.0, 0.0, scaleY, x - pivotX * scaleX, y - pivotY * scaleY);
             } else {
                 double radians = Math.toRadians(rotation);
                 double cosinus = Math.cos(radians);
@@ -113,10 +120,23 @@ public class Node2d extends Node {
                 double b = sinus * scaleX;
                 double c = -sinus * scaleY;
                 double d = cosinus * scaleY;
-                localMatrix = new Matrix3x2(a, b, c, d, x, y);
+                double tx = x - pivotX * a + pivotY * c;
+                double ty = y + pivotX * b - pivotY * d;
+                localMatrix = new Matrix3x2(a, b, c, d, tx, ty);
             }
         }
         return localMatrix;
+    }
+
+    public Node2d setScale(double scale) {
+        return setScale(scale, scale);
+    }
+
+    public Node2d setScale(double scaleX, double scaleY) {
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+        resetMatrices();
+        return this;
     }
 
     public Node2d setScaleX(double scaleX) {
@@ -183,5 +203,12 @@ public class Node2d extends Node {
         Vector2 b = matrix.transformPoint(x + width, y + height);
 
         return new Bounds(a.x, b.x, a.y, b.y);
+    }
+
+    public Node2d setPivot(double x, double y) {
+        pivotX = x;
+        pivotY = y;
+        resetMatrices();
+        return this;
     }
 }

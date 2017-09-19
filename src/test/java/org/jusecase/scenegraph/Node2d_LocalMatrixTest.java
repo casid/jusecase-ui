@@ -54,4 +54,44 @@ public class Node2d_LocalMatrixTest {
         assertThat(node.getLocalMatrix().c).isEqualTo(-100.0, TOLERANCE);
         assertThat(node.getLocalMatrix().d).isEqualTo(0.0, TOLERANCE);
     }
+
+    @Test
+    public void pivot() {
+        node.setSize(10, 5);
+
+        node.setPivot(0.5, 0.5);
+
+        assertThat(node.getLocalMatrix().tx).isEqualTo(-5.0, TOLERANCE);
+        assertThat(node.getLocalMatrix().ty).isEqualTo(-2.5, TOLERANCE);
+    }
+
+    @Test
+    public void pivot_scale() {
+        node.setSize(10, 5).setScale(2.0);
+
+        node.setPivot(0.5, 0.5);
+
+        assertThat(node.getLocalMatrix().tx).isEqualTo(-10.0, TOLERANCE);
+        assertThat(node.getLocalMatrix().ty).isEqualTo(-5.0, TOLERANCE);
+    }
+
+    @Test
+    public void pivot_rotate_180() {
+        node.setSize(10, 5).setScale(2.0).setRotation(180);
+
+        node.setPivot(0.5, 0.5);
+
+        assertThat(node.getLocalMatrix().tx).isEqualTo(10.0, TOLERANCE);
+        assertThat(node.getLocalMatrix().ty).isEqualTo(5.0, TOLERANCE);
+    }
+
+    @Test
+    public void pivot_rotate_90() {
+        node.setSize(10, 5).setScale(2.0).setRotation(90);
+
+        node.setPivot(0.5, 0.5);
+
+        assertThat(node.getLocalMatrix().tx).isEqualTo(-5.0, TOLERANCE);
+        assertThat(node.getLocalMatrix().ty).isEqualTo(10.0, TOLERANCE);
+    }
 }
