@@ -71,6 +71,9 @@ public class Node implements Cloneable {
     }
 
     public Node getChild(int index) {
+        if (children == null) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: 0");
+        }
         return children.get(index);
     }
 

@@ -43,4 +43,9 @@ public class Node_HierarchyTest extends UiTest {
         assertThat(throwable).isInstanceOf(UnsupportedOperationException.class);
         assertThat(parent.getChildren()).contains(child);
     }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void getChildAt() {
+        child.getChild(0);
+    }
 }

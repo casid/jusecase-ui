@@ -6,14 +6,14 @@ import org.jusecase.scenegraph.texture.TextureMock;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ImageTest {
-    Image image = new Image();
     TextureMock textureMock = new TextureMock();
+    Image image;
 
     @Test
-    public void name() {
+    public void texture() {
         textureMock.givenSize(512, 256);
 
-        image.setTexture(textureMock);
+        image = new Image(textureMock);
 
         assertThat(image.getWidth()).isEqualTo(512);
         assertThat(image.getHeight()).isEqualTo(256);
