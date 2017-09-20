@@ -1,5 +1,6 @@
 package org.jusecase.ui;
 
+import org.jusecase.scenegraph.Node2d;
 import org.jusecase.ui.touch.TouchEvent;
 import org.jusecase.ui.touch.TouchPhase;
 
@@ -31,5 +32,12 @@ public abstract class UiTest {
 
     protected void thenTouchedElementsAreEmpty() {
         assertThat(ui.getTouchedElements()).isEmpty();
+    }
+
+    protected void thenNodeIsAt(Node2d node, double x, double y, double w, double h) {
+        assertThat(node.getX()).describedAs("x").isEqualTo(x);
+        assertThat(node.getY()).describedAs("y").isEqualTo(y);
+        assertThat(node.getWidth()).describedAs("w").isEqualTo(w);
+        assertThat(node.getHeight()).describedAs("h").isEqualTo(h);
     }
 }

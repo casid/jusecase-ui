@@ -28,23 +28,9 @@ public class Image3SliceTest extends UiTest {
         assertThat(image.getWidth()).isEqualTo(11);
         assertThat(image.getHeight()).isEqualTo(10);
 
-        Image left = (Image)image.getChild(0);
-        assertThat(left.getX()).isEqualTo(0);
-        assertThat(left.getY()).isEqualTo(0);
-        assertThat(left.getWidth()).isEqualTo(5);
-        assertThat(left.getHeight()).isEqualTo(10);
-
-        Image center = (Image)image.getChild(1);
-        assertThat(center.getX()).isEqualTo(5);
-        assertThat(center.getY()).isEqualTo(0);
-        assertThat(center.getWidth()).isEqualTo(1);
-        assertThat(center.getHeight()).isEqualTo(10);
-
-        Image right = (Image)image.getChild(2);
-        assertThat(right.getX()).isEqualTo(6);
-        assertThat(right.getY()).isEqualTo(0);
-        assertThat(right.getWidth()).isEqualTo(5);
-        assertThat(right.getHeight()).isEqualTo(10);
+        thenNodeIsAt((Image)image.getChild(0), 0, 0, 5, 10);
+        thenNodeIsAt((Image)image.getChild(1), 5, 0, 1, 10);
+        thenNodeIsAt((Image)image.getChild(2), 6, 0, 5, 10);
     }
 
     @Test
@@ -54,22 +40,20 @@ public class Image3SliceTest extends UiTest {
         assertThat(image.getWidth()).isEqualTo(200);
         assertThat(image.getHeight()).isEqualTo(10);
 
-        Image left = (Image)image.getChild(0);
-        assertThat(left.getX()).isEqualTo(0);
-        assertThat(left.getY()).isEqualTo(0);
-        assertThat(left.getWidth()).isEqualTo(5);
-        assertThat(left.getHeight()).isEqualTo(10);
+        thenNodeIsAt((Image)image.getChild(0), 0, 0, 5, 10);
+        thenNodeIsAt((Image)image.getChild(1), 5, 0, 190, 10);
+        thenNodeIsAt((Image)image.getChild(2), 195, 0, 5, 10);
+    }
 
-        Image center = (Image)image.getChild(1);
-        assertThat(center.getX()).isEqualTo(5);
-        assertThat(center.getY()).isEqualTo(0);
-        assertThat(center.getWidth()).isEqualTo(190);
-        assertThat(center.getHeight()).isEqualTo(10);
+    @Test
+    public void changeHeight() {
+        image.setHeight(100);
 
-        Image right = (Image)image.getChild(2);
-        assertThat(right.getX()).isEqualTo(195);
-        assertThat(right.getY()).isEqualTo(0);
-        assertThat(right.getWidth()).isEqualTo(5);
-        assertThat(right.getHeight()).isEqualTo(10);
+        assertThat(image.getWidth()).isEqualTo(11);
+        assertThat(image.getHeight()).isEqualTo(100);
+
+        thenNodeIsAt((Image)image.getChild(0), 0, 0, 5, 100);
+        thenNodeIsAt((Image)image.getChild(1), 5, 0, 1, 100);
+        thenNodeIsAt((Image)image.getChild(2), 6, 0, 5, 100);
     }
 }
