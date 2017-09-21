@@ -1,32 +1,47 @@
 package org.jusecase.scenegraph.math;
 
 
-public final class Matrix3x2 {
-
-    public static final Matrix3x2 IDENTITY = new Matrix3x2(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+public final class Matrix3x2 implements Cloneable {
 
     public static Matrix3x2 multiply(Matrix3x2 a, Matrix3x2 b) {
-        return new Matrix3x2(
-                a.a * b.a + a.b * b.c,
-                a.a * b.b + a.b * b.d,
-                a.c * b.a + a.d * b.c,
-                a.c * b.b + a.d * b.d,
-                a.a * b.tx + a.b * b.ty + a.tx,
-                a.c * b.tx + a.d * b.ty + a.ty
-        );
+        return multiply(a, b, new Matrix3x2());
+    }
+
+    public static Matrix3x2 multiply(Matrix3x2 a, Matrix3x2 b, Matrix3x2 result) {
+        result.a = a.a * b.a + a.b * b.c;
+        result.b = a.a * b.b + a.b * b.d;
+        result.c = a.c * b.a + a.d * b.c;
+        result.d = a.c * b.b + a.d * b.d;
+        result.tx = a.a * b.tx + a.b * b.ty + a.tx;
+        result.ty = a.c * b.tx + a.d * b.ty + a.ty;
+        return result;
     }
 
     public static Matrix3x2 orthoProjection(double width, double height) {
-        return new Matrix3x2(2 / width, 0, 0, -2 / height, -1, 1);
+        return orthoProjection(width, height, new Matrix3x2());
     }
 
-    public final double a;
-    public final double b;
-    public final double c;
-    public final double d;
-    public final double tx;
-    public final double ty;
+    public static Matrix3x2 orthoProjection(double width, double height, Matrix3x2 result) {
+        result.a = 2 / width;
+        result.b = 0;
+        result.c = 0;
+        result.d = -2 / height;
+        result.tx = -1;
+        result.ty = 1;
 
+        return result;
+    }
+
+    public double a;
+    public double b;
+    public double c;
+    public double d;
+    public double tx;
+    public double ty;
+
+    public Matrix3x2() {
+        this(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+    }
 
     public Matrix3x2(double a, double b, double c, double d, double tx, double ty) {
         this.a = a;
@@ -42,19 +57,24 @@ public final class Matrix3x2 {
     }
 
     public Matrix3x2 inverse() {
+        return inverse(new Matrix3x2());
+    }
+
+    public Matrix3x2 inverse(Matrix3x2 result) {
         double det = determinant();
         if( det == 0.0f ) {
-            return this;
+            result.set(this);
+        } else {
+            det = 1.0 / det;
+
+            result.a = det * d;
+            result.b = -det * b;
+            result.c = -det * c;
+            result.d = det * a;
+            result.tx = -(tx * result.a + ty * result.b);
+            result.ty = -(tx * result.c + ty * result.d);
         }
-
-        det = 1.0 / det;
-
-        double a = det * this.d;
-        double b = -det * this.b;
-        double c = -det * this.c;
-        double d = det * this.a;
-
-        return new Matrix3x2(a, b, c, d, -(tx * a + ty * b), -(tx * c + ty * d));
+        return result;
     }
 
     public double determinant() {
@@ -67,7 +87,13 @@ public final class Matrix3x2 {
     }
 
     public Vector2 transformPoint(double x, double y) {
-        return new Vector2(a * x + b * y + tx, c * x + d * y + ty);
+        return transformPoint(x, y, new Vector2());
+    }
+
+    public Vector2 transformPoint(double x, double y, Vector2 result) {
+        result.x = a * x + b * y + tx;
+        result.y = c * x + d * y + ty;
+        return result;
     }
 
     public void transformPoint(float[] p) {
@@ -113,5 +139,23 @@ public final class Matrix3x2 {
         temp = Double.doubleToLongBits(ty);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    public void set(Matrix3x2 matrix) {
+        a = matrix.a;
+        b = matrix.b;
+        c = matrix.c;
+        d = matrix.d;
+        tx = matrix.tx;
+        ty = matrix.ty;
+    }
+
+    @Override
+    public Matrix3x2 clone() {
+        try {
+            return (Matrix3x2)super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

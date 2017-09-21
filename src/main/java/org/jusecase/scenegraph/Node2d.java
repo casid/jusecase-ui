@@ -17,18 +17,27 @@ public class Node2d extends Node {
     private double pivotX;
     private double pivotY;
 
-    private Matrix3x2 localMatrix = Matrix3x2.IDENTITY;
-    private Matrix3x2 globalMatrix = Matrix3x2.IDENTITY;
-    private Matrix3x2 globalMatrixInverse = Matrix3x2.IDENTITY;
+    private Matrix3x2 localMatrix = new Matrix3x2();
+    private Matrix3x2 globalMatrix = new Matrix3x2();
+    private Matrix3x2 globalMatrixInverse = new Matrix3x2();
 
+    private boolean dirtyLocalMatrix;
+    private boolean dirtyGlobalMatrix;
+    private boolean dirtyGlobalMatrixInverse;
+
+    private static final Vector2 HIT_TEST = new Vector2();
 
     public boolean hitTest(double x, double y) {
-        Vector2 p = globalToLocal(x, y);
+        Vector2 p = globalToLocal(x, y, HIT_TEST);
         return p.x >= 0 && p.x <= this.width && p.y >= 0.0 && p.y <= this.height;
     }
 
     public Vector2 globalToLocal(double x, double y) {
-        return getGlobalMatrixInverse().transformPoint(x, y);
+        return globalToLocal(x, y, new Vector2());
+    }
+
+    public Vector2 globalToLocal(double x, double y, Vector2 result) {
+        return getGlobalMatrixInverse().transformPoint(x, y, result);
     }
 
     @Override
@@ -58,15 +67,16 @@ public class Node2d extends Node {
     }
 
     private void resetMatrices() {
-        if (localMatrix != null || globalMatrix != null) {
-            localMatrix = null;
+        dirtyLocalMatrix = true;
+
+        if (!dirtyGlobalMatrix) {
             visitAll(Node2d.class, Node2d::resetGlobalMatrix);
         }
     }
 
     private void resetGlobalMatrix() {
-        this.globalMatrix = null;
-        this.globalMatrixInverse = null;
+        dirtyGlobalMatrix = true;
+        dirtyGlobalMatrixInverse = true;
     }
 
     public double getY() {
@@ -107,25 +117,34 @@ public class Node2d extends Node {
     }
 
     public Matrix3x2 getLocalMatrix() {
-        if (localMatrix == null) {
-            double pivotX = this.pivotX * width;
-            double pivotY = this.pivotY * height;
-            if (rotation == 0) {
-                localMatrix = new Matrix3x2(scaleX, 0.0, 0.0, scaleY, x - pivotX * scaleX, y - pivotY * scaleY);
-            } else {
-                double radians = Math.toRadians(rotation);
-                double cosinus = Math.cos(radians);
-                double sinus = Math.sin(radians);
-                double a = cosinus * scaleX;
-                double b = sinus * scaleX;
-                double c = -sinus * scaleY;
-                double d = cosinus * scaleY;
-                double tx = x - pivotX * a + pivotY * c;
-                double ty = y + pivotX * b - pivotY * d;
-                localMatrix = new Matrix3x2(a, b, c, d, tx, ty);
-            }
+        if (dirtyLocalMatrix) {
+            updateLocalMatrix();
+            dirtyLocalMatrix = false;
         }
         return localMatrix;
+    }
+
+    private void updateLocalMatrix() {
+        double pivotX = this.pivotX * width;
+        double pivotY = this.pivotY * height;
+        if (rotation == 0) {
+            localMatrix.a = scaleX;
+            localMatrix.b = 0.0;
+            localMatrix.c = 0.0;
+            localMatrix.d = scaleY;
+            localMatrix.tx = x - pivotX * scaleX;
+            localMatrix.ty = y - pivotY * scaleY;
+        } else {
+            double radians = Math.toRadians(rotation);
+            double cosinus = Math.cos(radians);
+            double sinus = Math.sin(radians);
+            localMatrix.a = cosinus * scaleX;
+            localMatrix.b = sinus * scaleX;
+            localMatrix.c = -sinus * scaleY;
+            localMatrix.d = cosinus * scaleY;
+            localMatrix.tx = x - pivotX * localMatrix.a + pivotY * localMatrix.c;
+            localMatrix.ty = y + pivotX * localMatrix.b - pivotY * localMatrix.d;
+        }
     }
 
     public Node2d setScale(double scale) {
@@ -170,20 +189,26 @@ public class Node2d extends Node {
     }
 
     public Matrix3x2 getGlobalMatrix() {
-        if (globalMatrix == null) {
-            Node2d parent = (Node2d) getParent();
-            if (parent != null) {
-                globalMatrix = parent.getGlobalMatrix().multiply(getLocalMatrix());
-            } else {
-                globalMatrix = getLocalMatrix();
-            }
+        if (dirtyGlobalMatrix) {
+            updateGlobalMatrix();
+            dirtyGlobalMatrix = false;
         }
         return globalMatrix;
     }
 
+    private void updateGlobalMatrix() {
+        Node2d parent = (Node2d) getParent();
+        if (parent != null) {
+            Matrix3x2.multiply(parent.getGlobalMatrix(), getLocalMatrix(), globalMatrix);
+        } else {
+            globalMatrix.set(getLocalMatrix());
+        }
+    }
+
     public Matrix3x2 getGlobalMatrixInverse() {
-        if (globalMatrixInverse == null) {
-            globalMatrixInverse = getGlobalMatrix().inverse();
+        if (dirtyGlobalMatrixInverse) {
+            getGlobalMatrix().inverse(globalMatrixInverse);
+            dirtyGlobalMatrixInverse = false;
         }
         return globalMatrixInverse;
     }
@@ -191,18 +216,10 @@ public class Node2d extends Node {
     @Override
     public Node2d clone() {
         Node2d clone = (Node2d) super.clone();
-        clone.localMatrix = null;
-        clone.globalMatrix = null;
-        clone.globalMatrixInverse = null;
+        clone.localMatrix = localMatrix.clone();
+        clone.globalMatrix = globalMatrix.clone();
+        clone.globalMatrixInverse = globalMatrixInverse.clone();
         return clone;
-    }
-
-    public Bounds getGlobalBounds() {
-        Matrix3x2 matrix = getGlobalMatrix();
-        Vector2 a = matrix.transformPoint(x, y);
-        Vector2 b = matrix.transformPoint(x + width, y + height);
-
-        return new Bounds(a.x, b.x, a.y, b.y);
     }
 
     public Node2d setPivot(double x, double y) {
