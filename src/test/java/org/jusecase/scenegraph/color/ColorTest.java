@@ -31,37 +31,37 @@ public class ColorTest {
     @Test
     public void hex_grey() {
         color = new Color("#808080");
-        thenColorIs(0.5, 0.5, 0.5, 1);
+        thenColorIs(0.5f, 0.5f, 0.5f, 1);
     }
 
     @Test
     public void hex_red() {
         color = new Color("#ff0000");
-        thenColorIs(1.0, 0.0, 0.0, 1);
+        thenColorIs(1.0f, 0.0f, 0.0f, 1);
     }
 
     @Test
     public void hex_green() {
         color = new Color("#00ff00");
-        thenColorIs(0.0, 1.0, 0.0, 1);
+        thenColorIs(0.0f, 1.0f, 0.0f, 1);
     }
 
     @Test
     public void hex_blue() {
         color = new Color("#0000ff");
-        thenColorIs(0.0, 0.0, 1.0, 1);
+        thenColorIs(0.0f, 0.0f, 1.0f, 1);
     }
 
     @Test
     public void hex_blue_withoutHash() {
         color = new Color("0000ff");
-        thenColorIs(0.0, 0.0, 1.0, 1);
+        thenColorIs(0.0f, 0.0f, 1.0f, 1);
     }
 
     @Test
     public void hex_red_alpha() {
         color = new Color("#ff000080");
-        thenColorIs(1.0, 0.0, 0.0, 0.5);
+        thenColorIs(1.0f, 0.0f, 0.0f, 0.5f);
     }
 
     @Test
@@ -72,8 +72,8 @@ public class ColorTest {
 
     @Test
     public void hex_white_alpha() {
-        color = new Color("#fff", 0.1);
-        thenColorIs(1, 1, 1, 0.1);
+        color = new Color("#fff", 0.1f);
+        thenColorIs(1, 1, 1, 0.1f);
     }
 
     @Test
@@ -90,32 +90,32 @@ public class ColorTest {
 
     @Test
     public void hex_alpha_blue() {
-        color = new Color("#00f", 0.5);
-        thenColorIs(0, 0, 1, 0.5);
+        color = new Color("#00f", 0.5f);
+        thenColorIs(0, 0, 1, 0.5f);
     }
 
     @Test
     public void doubles_luminance() {
-        color = new Color(0.5);
-        thenColorIs(0.5, 0.5, 0.5, 1);
+        color = new Color(0.5f);
+        thenColorIs(0.5f, 0.5f, 0.5f, 1f);
     }
 
     @Test
     public void doubles_luminance_alpha() {
-        color = new Color(0.5, 0.3);
-        thenColorIs(0.5, 0.5, 0.5, 0.3);
+        color = new Color(0.5f, 0.3f);
+        thenColorIs(0.5f, 0.5f, 0.5f, 0.3f);
     }
 
     @Test
     public void doubles_rgb() {
-        color = new Color(0.1, 0.2, 0.3);
-        thenColorIs(0.1, 0.2, 0.3, 1);
+        color = new Color(0.1f, 0.2f, 0.3f);
+        thenColorIs(0.1f, 0.2f, 0.3f, 1);
     }
 
     @Test
     public void doubles_rgba() {
-        color = new Color(0.1, 0.2, 0.3, 0.4);
-        thenColorIs(0.1, 0.2, 0.3, 0.4);
+        color = new Color(0.1f, 0.2f, 0.3f, 0.4f);
+        thenColorIs(0.1f, 0.2f, 0.3f, 0.4f);
     }
 
     @Test
@@ -136,12 +136,12 @@ public class ColorTest {
         assertThat(throwable).isInstanceOf(NumberFormatException.class).hasMessage("Failed to parse color from '00bart'");
     }
 
-    private void thenColorIs(double r, double g, double b, double a) {
+    private void thenColorIs(float r, float g, float b, float a) {
         SoftAssertions s = new SoftAssertions();
-        s.assertThat(color.getRed()).describedAs("red").isCloseTo(r, Offset.offset(0.01));
-        s.assertThat(color.getGreen()).describedAs("green").isCloseTo(g, Offset.offset(0.01));
-        s.assertThat(color.getBlue()).describedAs("blue").isCloseTo(b, Offset.offset(0.01));
-        s.assertThat(color.getAlpha()).describedAs("alpha").isCloseTo(a, Offset.offset(0.01));
+        s.assertThat(color.r).describedAs("red").isCloseTo(r, Offset.offset(0.01f));
+        s.assertThat(color.g).describedAs("green").isCloseTo(g, Offset.offset(0.01f));
+        s.assertThat(color.b).describedAs("blue").isCloseTo(b, Offset.offset(0.01f));
+        s.assertThat(color.a).describedAs("alpha").isCloseTo(a, Offset.offset(0.01f));
         s.assertAll();
     }
 }

@@ -3,19 +3,26 @@ package org.jusecase.scenegraph;
 import org.jusecase.scenegraph.color.Color;
 
 public class Quad extends Node2d {
-    private Color color = Color.WHITE;
+    private Color color = new Color(1.0f);
 
     public Color getColor() {
         return color;
     }
 
     public Quad setColor(Color color) {
-        this.color = color;
+        this.color.set(color);
         return this;
     }
 
     @Override
     public boolean isRenderable() {
         return true;
+    }
+
+    @Override
+    public Quad clone() {
+        Quad quad = (Quad)super.clone();
+        quad.color = color.clone();
+        return quad;
     }
 }
