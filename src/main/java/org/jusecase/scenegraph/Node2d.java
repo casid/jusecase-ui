@@ -1,6 +1,5 @@
 package org.jusecase.scenegraph;
 
-import org.jusecase.scenegraph.math.Bounds;
 import org.jusecase.scenegraph.math.Matrix3x2;
 import org.jusecase.scenegraph.math.Vector2;
 
