@@ -6,4 +6,5 @@ public interface Renderer {
     default void begin() {}
     void render(Node node);
     default void end() {}
+    void dispose();
 }

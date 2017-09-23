@@ -26,4 +26,9 @@ public class PaintersAlgorithmRenderer implements Renderer {
         });
         renderer.end();
     }
+
+    @Override
+    public void dispose() {
+        renderer.dispose();
+    }
 }
