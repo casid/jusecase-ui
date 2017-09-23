@@ -58,10 +58,10 @@ public class Image9Slice extends Node2d {
     }
 
     @Override
-    public Node2d setWidth(double width) {
+    public Node2d setWidth(float width) {
         super.setWidth(width);
 
-        double centerWidth = getWidth() - lc.getWidth() - rc.getWidth();
+        float centerWidth = getWidth() - lc.getWidth() - rc.getWidth();
 
         ct.setX(lc.getWidth()).setWidth(centerWidth);
         cc.setX(lc.getWidth()).setWidth(centerWidth);
@@ -75,10 +75,10 @@ public class Image9Slice extends Node2d {
     }
 
     @Override
-    public Node2d setHeight(double height) {
+    public Node2d setHeight(float height) {
         super.setHeight(height);
 
-        double centerHeight = getHeight() - ct.getHeight() - cb.getHeight();
+        float centerHeight = getHeight() - ct.getHeight() - cb.getHeight();
 
         lc.setY(lt.getHeight()).setHeight(centerHeight);
         cc.setY(lt.getHeight()).setHeight(centerHeight);

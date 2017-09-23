@@ -12,10 +12,10 @@ public class SubTexture implements Texture {
         this.width = w;
         this.height = h;
 
-        double left = (double)x / texture.getWidth();
-        double bottom = (double)(y + h) / texture.getHeight();
-        double right = (double)(x + w) / texture.getWidth();
-        double top = (double)y / texture.getHeight();
+        float left = (float)x / texture.getWidth();
+        float bottom = (float)(y + h) / texture.getHeight();
+        float right = (float)(x + w) / texture.getWidth();
+        float top = (float)y / texture.getHeight();
         this.texCoords = new TexCoords(left, bottom, right, top);
     }
 

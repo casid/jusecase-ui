@@ -17,11 +17,11 @@ public final class Matrix3x2 implements Cloneable {
         return result;
     }
 
-    public static Matrix3x2 orthoProjection(double width, double height) {
+    public static Matrix3x2 orthoProjection(float width, float height) {
         return orthoProjection(width, height, new Matrix3x2());
     }
 
-    public static Matrix3x2 orthoProjection(double width, double height, Matrix3x2 result) {
+    public static Matrix3x2 orthoProjection(float width, float height, Matrix3x2 result) {
         result.a = 2 / width;
         result.b = 0;
         result.c = 0;
@@ -32,18 +32,18 @@ public final class Matrix3x2 implements Cloneable {
         return result;
     }
 
-    public double a;
-    public double b;
-    public double c;
-    public double d;
-    public double tx;
-    public double ty;
+    public float a;
+    public float b;
+    public float c;
+    public float d;
+    public float tx;
+    public float ty;
 
     public Matrix3x2() {
-        this(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+        this(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
     }
 
-    public Matrix3x2(double a, double b, double c, double d, double tx, double ty) {
+    public Matrix3x2(float a, float b, float c, float d, float tx, float ty) {
         this.a = a;
         this.b = b;
         this.c = c;
@@ -61,11 +61,11 @@ public final class Matrix3x2 implements Cloneable {
     }
 
     public Matrix3x2 inverse(Matrix3x2 result) {
-        double det = determinant();
+        float det = determinant();
         if( det == 0.0f ) {
             result.set(this);
         } else {
-            det = 1.0 / det;
+            det = 1.0f / det;
 
             result.a = det * d;
             result.b = -det * b;
@@ -77,7 +77,7 @@ public final class Matrix3x2 implements Cloneable {
         return result;
     }
 
-    public double determinant() {
+    public float determinant() {
         return a * d - c * b;
     }
 
@@ -86,19 +86,19 @@ public final class Matrix3x2 implements Cloneable {
         return "Matrix3x2{" + "a=" + a + ", b=" + b + ", c=" + c + ", d=" + d + ", tx=" + tx + ", ty=" + ty + '}';
     }
 
-    public Vector2 transformPoint(double x, double y) {
+    public Vector2 transformPoint(float x, float y) {
         return transformPoint(x, y, new Vector2());
     }
 
-    public Vector2 transformPoint(double x, double y, Vector2 result) {
+    public Vector2 transformPoint(float x, float y, Vector2 result) {
         result.x = a * x + b * y + tx;
         result.y = c * x + d * y + ty;
         return result;
     }
 
     public void transformPoint(float[] p) {
-        float x = (float) (a * p[0] + b * p[1] + tx);
-        float y = (float) (c * p[0] + d * p[1] + ty);
+        float x = a * p[0] + b * p[1] + tx;
+        float y = c * p[0] + d * p[1] + ty;
         p[0] = x;
         p[1] = y;
     }

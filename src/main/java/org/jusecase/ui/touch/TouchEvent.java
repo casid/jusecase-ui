@@ -4,10 +4,10 @@ import org.jusecase.ui.elements.Element;
 
 public class TouchEvent implements Cloneable {
     public long id;
-    public double x;
-    public double y;
-    public double deltaX;
-    public double deltaY;
+    public float x;
+    public float y;
+    public float deltaX;
+    public float deltaY;
     public TouchPhase phase;
     public Element element;
 

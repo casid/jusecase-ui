@@ -5,17 +5,17 @@ import org.jusecase.scenegraph.math.Matrix3x2;
 import org.jusecase.scenegraph.math.Vector2;
 
 public class Node2d extends Node {
-    private double x;
-    private double y;
-    private double scaleX = 1.0;
-    private double scaleY = 1.0;
-    private double rotation;
+    private float x;
+    private float y;
+    private float scaleX = 1.0f;
+    private float scaleY = 1.0f;
+    private float rotation;
 
-    private double width;
-    private double height;
+    private float width;
+    private float height;
 
-    private double pivotX;
-    private double pivotY;
+    private float pivotX;
+    private float pivotY;
 
     private Matrix3x2 localMatrix = new Matrix3x2();
     private Matrix3x2 globalMatrix = new Matrix3x2();
@@ -27,16 +27,16 @@ public class Node2d extends Node {
 
     private static final Vector2 HIT_TEST = new Vector2();
 
-    public boolean hitTest(double x, double y) {
+    public boolean hitTest(float x, float y) {
         Vector2 p = globalToLocal(x, y, HIT_TEST);
         return p.x >= 0 && p.x <= this.width && p.y >= 0.0 && p.y <= this.height;
     }
 
-    public Vector2 globalToLocal(double x, double y) {
+    public Vector2 globalToLocal(float x, float y) {
         return globalToLocal(x, y, new Vector2());
     }
 
-    public Vector2 globalToLocal(double x, double y, Vector2 result) {
+    public Vector2 globalToLocal(float x, float y, Vector2 result) {
         return getGlobalMatrixInverse().transformPoint(x, y, result);
     }
 
@@ -49,18 +49,18 @@ public class Node2d extends Node {
         }
     }
 
-    public Node2d setPosition(double x, double y) {
+    public Node2d setPosition(float x, float y) {
         this.x = x;
         this.y = y;
         resetMatrices();
         return this;
     }
 
-    public double getX() {
+    public float getX() {
         return x;
     }
 
-    public Node2d setX(double x) {
+    public Node2d setX(float x) {
         this.x = x;
         resetMatrices();
         return this;
@@ -79,35 +79,35 @@ public class Node2d extends Node {
         dirtyGlobalMatrixInverse = true;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
-    public Node2d setY(double y) {
+    public Node2d setY(float y) {
         this.y = y;
         resetMatrices();
         return this;
     }
 
-    public double getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public Node2d setWidth(double width) {
+    public Node2d setWidth(float width) {
         this.width = width;
         return this;
     }
 
-    public double getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public Node2d setHeight(double height) {
+    public Node2d setHeight(float height) {
         this.height = height;
         return this;
     }
 
-    public Node2d setSize(double width, double height) {
+    public Node2d setSize(float width, float height) {
         return this.setWidth(width).setHeight(height);
     }
 
@@ -125,66 +125,66 @@ public class Node2d extends Node {
     }
 
     private void updateLocalMatrix() {
-        double pivotX = this.pivotX * width;
-        double pivotY = this.pivotY * height;
+        float pivotX = this.pivotX * width;
+        float pivotY = this.pivotY * height;
         if (rotation == 0) {
             localMatrix.a = scaleX;
-            localMatrix.b = 0.0;
-            localMatrix.c = 0.0;
+            localMatrix.b = 0.0f;
+            localMatrix.c = 0.0f;
             localMatrix.d = scaleY;
             localMatrix.tx = x - pivotX * scaleX;
             localMatrix.ty = y - pivotY * scaleY;
         } else {
-            double radians = Math.toRadians(rotation);
-            double cosinus = Math.cos(radians);
-            double sinus = Math.sin(radians);
-            localMatrix.a = cosinus * scaleX;
-            localMatrix.b = sinus * scaleX;
-            localMatrix.c = -sinus * scaleY;
-            localMatrix.d = cosinus * scaleY;
+            float radians = (float)Math.toRadians(rotation);
+            float cos = (float)Math.cos(radians);
+            float sin = (float)Math.sin(radians);
+            localMatrix.a = cos * scaleX;
+            localMatrix.b = sin * scaleX;
+            localMatrix.c = -sin * scaleY;
+            localMatrix.d = cos * scaleY;
             localMatrix.tx = x - pivotX * localMatrix.a + pivotY * localMatrix.c;
             localMatrix.ty = y + pivotX * localMatrix.b - pivotY * localMatrix.d;
         }
     }
 
-    public Node2d setScale(double scale) {
+    public Node2d setScale(float scale) {
         return setScale(scale, scale);
     }
 
-    public Node2d setScale(double scaleX, double scaleY) {
+    public Node2d setScale(float scaleX, float scaleY) {
         this.scaleX = scaleX;
         this.scaleY = scaleY;
         resetMatrices();
         return this;
     }
 
-    public Node2d setScaleX(double scaleX) {
+    public Node2d setScaleX(float scaleX) {
         this.scaleX = scaleX;
         resetMatrices();
         return this;
     }
 
-    public double getScaleX() {
+    public float getScaleX() {
         return scaleX;
     }
 
-    public Node2d setScaleY(double scaleY) {
+    public Node2d setScaleY(float scaleY) {
         this.scaleY = scaleY;
         resetMatrices();
         return this;
     }
 
-    public double getScaleY() {
+    public float getScaleY() {
         return scaleY;
     }
 
-    public Node2d setRotation(double rotation) {
+    public Node2d setRotation(float rotation) {
         this.rotation = rotation;
         resetMatrices();
         return this;
     }
 
-    public double getRotation() {
+    public float getRotation() {
         return rotation;
     }
 
@@ -222,7 +222,7 @@ public class Node2d extends Node {
         return clone;
     }
 
-    public Node2d setPivot(double x, double y) {
+    public Node2d setPivot(float x, float y) {
         pivotX = x;
         pivotY = y;
         resetMatrices();

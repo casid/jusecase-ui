@@ -13,11 +13,11 @@ public abstract class UiTest {
     protected Ui ui = new Ui();
     protected List<TouchEvent> touchEvents = new ArrayList<>();
 
-    protected void givenTouchEvent(double x, double y, TouchPhase phase) {
+    protected void givenTouchEvent(float x, float y, TouchPhase phase) {
         givenTouchEvent(0, x, y, phase);
     }
 
-    protected void givenTouchEvent(long id, double x, double y, TouchPhase phase) {
+    protected void givenTouchEvent(long id, float x, float y, TouchPhase phase) {
         TouchEvent touchEvent = new TouchEvent();
         touchEvent.id = id;
         touchEvent.x = x;
@@ -34,7 +34,7 @@ public abstract class UiTest {
         assertThat(ui.getTouchedElements()).isEmpty();
     }
 
-    protected void thenNodeIsAt(Node2d node, double x, double y, double w, double h) {
+    protected void thenNodeIsAt(Node2d node, float x, float y, float w, float h) {
         assertThat(node.getX()).describedAs("x").isEqualTo(x);
         assertThat(node.getY()).describedAs("y").isEqualTo(y);
         assertThat(node.getWidth()).describedAs("w").isEqualTo(w);

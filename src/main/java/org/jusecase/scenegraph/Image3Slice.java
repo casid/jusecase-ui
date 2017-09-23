@@ -21,7 +21,7 @@ public class Image3Slice extends Node2d {
     }
 
     @Override
-    public Node2d setWidth(double width) {
+    public Node2d setWidth(float width) {
         super.setWidth(width);
         center.setX(left.getWidth()).setWidth(getWidth() - left.getWidth() - right.getWidth());
         right.setX(center.getX() + center.getWidth());
@@ -29,7 +29,7 @@ public class Image3Slice extends Node2d {
     }
 
     @Override
-    public Node2d setHeight(double height) {
+    public Node2d setHeight(float height) {
         super.setHeight(height);
         left.setHeight(height);
         center.setHeight(height);

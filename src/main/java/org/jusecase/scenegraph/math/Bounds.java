@@ -1,12 +1,12 @@
 package org.jusecase.scenegraph.math;
 
 public class Bounds {
-    public final double left;
-    public final double right;
-    public final double top;
-    public final double bottom;
+    public final float left;
+    public final float right;
+    public final float top;
+    public final float bottom;
 
-    public Bounds(double left, double right, double top, double bottom) {
+    public Bounds(float left, float right, float top, float bottom) {
         this.left = left;
         this.right = right;
         this.top = top;
