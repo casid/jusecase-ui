@@ -1,35 +1,18 @@
 package org.jusecase;
 
 import org.jusecase.scenegraph.render.Renderer;
-import org.jusecase.ui.Ui;
 import org.jusecase.ui.touch.TouchEvent;
 
+public interface Application {
 
-// TODO that's too simple
-public abstract class Application {
-    private Renderer renderer;
-    protected Ui ui = new Ui();
+    void init();
 
+    void process(TouchEvent touchEvent);
 
-    public void start() {
-        renderer = createRenderer();
-    }
+    void update();
 
-    protected void render() {
-        renderer.render(ui);
-    }
+    void render(Renderer renderer);
 
-    protected void dispose() {
-        renderer.dispose();
-    }
+    void dispose();
 
-    protected void processTouch(TouchEvent event) {
-        ui.process(event);
-    }
-
-    protected abstract Renderer createRenderer();
-
-    protected abstract void onStart();
-
-    protected abstract void onUpdate();
 }

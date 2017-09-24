@@ -18,4 +18,8 @@ public class TextureAtlas {
     public void put(String name, int x, int y, int w, int h) {
         subTextures.put(name, new SubTexture(texture, x, y, w, h));
     }
+
+    public void dispose() {
+        texture.dispose();
+    }
 }
