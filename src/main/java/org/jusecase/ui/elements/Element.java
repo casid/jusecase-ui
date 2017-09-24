@@ -63,11 +63,6 @@ public class Element extends Node2d {
         public void dispatch(TouchEvent event) {
             super.dispatch(event);
         }
-
-        @Override
-        protected TouchEvent createEvent() {
-            return new TouchEvent();
-        }
     }
 
     public class OnHover extends Signal<HoverEvent> {
@@ -77,11 +72,6 @@ public class Element extends Node2d {
 
         public void dispatch(boolean started) {
             super.dispatch(event -> event.started = started);
-        }
-
-        @Override
-        protected HoverEvent createEvent() {
-            return new HoverEvent();
         }
     }
 }

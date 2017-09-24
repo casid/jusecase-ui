@@ -22,7 +22,16 @@ public class PaintersAlgorithmRendererTest {
 
     List<Node> renderedNodes = new ArrayList<>();
 
-    Renderer renderer = new PaintersAlgorithmRenderer(node -> renderedNodes.add(node));
+    Renderer renderer = new PaintersAlgorithmRenderer(new Renderer() {
+        @Override
+        public void render(Node node) {
+            renderedNodes.add(node);
+        }
+
+        @Override
+        public void dispose() {
+        }
+    });
 
     @Before
     public void setUp() {

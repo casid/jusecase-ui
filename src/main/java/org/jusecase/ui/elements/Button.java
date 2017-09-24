@@ -59,10 +59,5 @@ public class Button extends Element {
         void dispatch() {
             dispatch(e -> e.button = Button.this);
         }
-
-        @Override
-        protected ButtonClickEvent createEvent() {
-            return new ButtonClickEvent();
-        }
     }
 }
