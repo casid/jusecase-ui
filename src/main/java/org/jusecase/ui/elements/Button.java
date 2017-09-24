@@ -1,14 +1,13 @@
 package org.jusecase.ui.elements;
 
 import org.jusecase.signals.Signal;
-import org.jusecase.ui.elements.events.ButtonClickEvent;
-import org.jusecase.ui.elements.events.HoverEvent;
 import org.jusecase.ui.style.Style;
+import org.jusecase.ui.touch.OnClick;
 import org.jusecase.ui.touch.TouchEvent;
 import org.jusecase.ui.touch.TouchPhase;
 
 public class Button extends Element {
-    public final OnClick onClick = new OnClick();
+    public final Signal<OnClick> onClick = new Signal<>();
 
     private boolean pressed;
     private boolean hovered;
@@ -30,7 +29,7 @@ public class Button extends Element {
             pressed = false;
             update();
             if (hitTest(event.x, event.y)) {
-                onClick.dispatch();
+                onClick.dispatch(s -> s.onClick(this));
             }
         }
     }
@@ -42,22 +41,12 @@ public class Button extends Element {
         }
     }
 
-    private void onHover(HoverEvent event) {
-        hovered = event.started;
+    private void onHover(boolean started) {
+        hovered = started;
         update();
     }
 
     public boolean isHovered() {
         return hovered;
-    }
-
-    public class OnClick extends Signal<ButtonClickEvent> {
-        public OnClick() {
-            super();
-        }
-
-        void dispatch() {
-            dispatch(e -> e.button = Button.this);
-        }
     }
 }

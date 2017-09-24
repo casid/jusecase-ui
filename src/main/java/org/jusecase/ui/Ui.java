@@ -52,7 +52,7 @@ public class Ui extends Element {
             }
 
             touchEvent.element = element;
-            element.onTouch.dispatch(touchEvent);
+            element.onTouch.dispatch(s -> s.onTouch(touchEvent));
             return touchedElement == null || element == touchedElement;
         }
 
@@ -62,16 +62,16 @@ public class Ui extends Element {
     private boolean processHover(TouchEvent touchEvent, Element hoveredElement, Element element) {
         if (element.hitTest(touchEvent.x, touchEvent.y)) {
             if (hoveredElement != null) {
-                hoveredElement.onHover.dispatch(false);
+                hoveredElement.onHover.dispatch(s -> s.onHover(false));
             }
 
             hoveredElementsByTouchId.put(touchEvent.id, new WeakReference<>(element));
-            element.onHover.dispatch(true);
+            element.onHover.dispatch(s -> s.onHover(true));
 
             return true;
         } else if (element == hoveredElement) {
             hoveredElementsByTouchId.remove(touchEvent.id);
-            element.onHover.dispatch(false);
+            element.onHover.dispatch(s -> s.onHover(false));
         }
 
         return false;

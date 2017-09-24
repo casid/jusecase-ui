@@ -3,7 +3,6 @@ package org.jusecase.ui.elements;
 import org.junit.Before;
 import org.junit.Test;
 import org.jusecase.ui.UiTest;
-import org.jusecase.ui.elements.events.ButtonClickEvent;
 import org.jusecase.ui.touch.TouchPhase;
 
 import java.lang.ref.WeakReference;
@@ -15,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ButtonTest extends UiTest {
     Button button = new Button();
 
-    List<ButtonClickEvent> buttonClickEvents = new ArrayList<>();
+    List<Element> buttonClickEvents = new ArrayList<>();
 
     @Before
     public void setUp() {

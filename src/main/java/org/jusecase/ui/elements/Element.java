@@ -3,15 +3,14 @@ package org.jusecase.ui.elements;
 import org.jusecase.scenegraph.Node;
 import org.jusecase.signals.Signal;
 import org.jusecase.ui.Ui;
-import org.jusecase.ui.elements.events.HoverEvent;
-import org.jusecase.scenegraph.render.Renderer;
 import org.jusecase.ui.style.Style;
-import org.jusecase.ui.touch.TouchEvent;
+import org.jusecase.ui.touch.OnHover;
+import org.jusecase.ui.touch.OnTouch;
 import org.jusecase.scenegraph.Node2d;
 
 public class Element extends Node2d {
-    public final OnTouch onTouch = new OnTouch();
-    public final OnHover onHover = new OnHover();
+    public final Signal<OnTouch> onTouch = new Signal<>();
+    public final Signal<OnHover> onHover = new Signal<>();
 
     private Ui ui;
     private Style style;
@@ -53,25 +52,5 @@ public class Element extends Node2d {
 
     public void setUi(Ui ui) {
         this.ui = ui;
-    }
-
-    public class OnTouch extends Signal<TouchEvent> {
-        public OnTouch() {
-            super();
-        }
-
-        public void dispatch(TouchEvent event) {
-            super.dispatch(event);
-        }
-    }
-
-    public class OnHover extends Signal<HoverEvent> {
-        public OnHover() {
-            super();
-        }
-
-        public void dispatch(boolean started) {
-            super.dispatch(event -> event.started = started);
-        }
     }
 }
