@@ -1,7 +1,7 @@
 package org.jusecase.ui;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.jusecase.ui.elements.Element;
 import org.jusecase.ui.touch.TouchPhase;
 
@@ -19,7 +19,7 @@ public class Element_TouchTest extends UiTest {
 
     List<Element> touchedElements = new ArrayList<>();
 
-    @Before
+    @BeforeEach
     public void setUp() {
         ui.add(element1.setX(0).setSize(10, 10));
         ui.add(element2.setX(1).setSize(10, 10));
@@ -60,8 +60,8 @@ public class Element_TouchTest extends UiTest {
 
     @Test
     public void multitouch() {
-        givenTouchEvent(1,3, 0, TouchPhase.Begin);
-        givenTouchEvent(2,4, 0, TouchPhase.Begin);
+        givenTouchEvent(1, 3, 0, TouchPhase.Begin);
+        givenTouchEvent(2, 4, 0, TouchPhase.Begin);
 
         whenTouchEventsAreProcessed();
 

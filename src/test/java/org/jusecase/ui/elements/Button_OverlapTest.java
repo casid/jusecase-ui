@@ -1,7 +1,7 @@
 package org.jusecase.ui.elements;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.jusecase.ui.UiTest;
 import org.jusecase.ui.touch.TouchPhase;
 
@@ -11,7 +11,7 @@ public class Button_OverlapTest extends UiTest {
     Button button1 = new Button();
     Button button2 = new Button();
 
-    @Before
+    @BeforeEach
     public void setUp() {
         ui.add(button1.setX(100).setY(100).setWidth(200).setHeight(50));
         ui.add(button2.setX(120).setY(120).setWidth(200).setHeight(50));

@@ -1,7 +1,7 @@
 package org.jusecase.scenegraph;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.jusecase.scenegraph.texture.TextureAtlas;
 import org.jusecase.scenegraph.texture.TextureMock;
 import org.jusecase.ui.UiTest;
@@ -14,7 +14,7 @@ public class Image9SliceTest extends UiTest {
 
     Image9Slice image;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         atlas.put("image-lt", 0, 0, 5, 5);
         atlas.put("image-lc", 0, 5, 5, 1);
@@ -36,17 +36,17 @@ public class Image9SliceTest extends UiTest {
         assertThat(image.getWidth()).isEqualTo(11);
         assertThat(image.getHeight()).isEqualTo(11);
 
-        thenNodeIsAt((Image)image.getChild(0), 0, 0, 5, 5); // lt
-        thenNodeIsAt((Image)image.getChild(1), 0, 5, 5, 1); // lc
-        thenNodeIsAt((Image)image.getChild(2), 0, 6, 5, 5); // lb
+        thenNodeIsAt((Image) image.getChild(0), 0, 0, 5, 5); // lt
+        thenNodeIsAt((Image) image.getChild(1), 0, 5, 5, 1); // lc
+        thenNodeIsAt((Image) image.getChild(2), 0, 6, 5, 5); // lb
 
-        thenNodeIsAt((Image)image.getChild(3), 5, 0, 1, 5); // ct
-        thenNodeIsAt((Image)image.getChild(4), 5, 5, 1, 1); // cc
-        thenNodeIsAt((Image)image.getChild(5), 5, 6, 1, 5); // cb
+        thenNodeIsAt((Image) image.getChild(3), 5, 0, 1, 5); // ct
+        thenNodeIsAt((Image) image.getChild(4), 5, 5, 1, 1); // cc
+        thenNodeIsAt((Image) image.getChild(5), 5, 6, 1, 5); // cb
 
-        thenNodeIsAt((Image)image.getChild(6), 6, 0, 5, 5); // rt
-        thenNodeIsAt((Image)image.getChild(7), 6, 5, 5, 1); // rc
-        thenNodeIsAt((Image)image.getChild(8), 6, 6, 5, 5); // rb
+        thenNodeIsAt((Image) image.getChild(6), 6, 0, 5, 5); // rt
+        thenNodeIsAt((Image) image.getChild(7), 6, 5, 5, 1); // rc
+        thenNodeIsAt((Image) image.getChild(8), 6, 6, 5, 5); // rb
     }
 
     @Test
@@ -56,16 +56,16 @@ public class Image9SliceTest extends UiTest {
         assertThat(image.getWidth()).isEqualTo(200);
         assertThat(image.getHeight()).isEqualTo(100);
 
-        thenNodeIsAt((Image)image.getChild(0), 0, 0, 5, 5); // lt
-        thenNodeIsAt((Image)image.getChild(1), 0, 5, 5, 90); // lc
-        thenNodeIsAt((Image)image.getChild(2), 0, 95, 5, 5); // lb
+        thenNodeIsAt((Image) image.getChild(0), 0, 0, 5, 5); // lt
+        thenNodeIsAt((Image) image.getChild(1), 0, 5, 5, 90); // lc
+        thenNodeIsAt((Image) image.getChild(2), 0, 95, 5, 5); // lb
 
-        thenNodeIsAt((Image)image.getChild(3), 5, 0, 190, 5); // ct
-        thenNodeIsAt((Image)image.getChild(4), 5, 5, 190, 90); // cc
-        thenNodeIsAt((Image)image.getChild(5), 5, 95, 190, 5); // cb
+        thenNodeIsAt((Image) image.getChild(3), 5, 0, 190, 5); // ct
+        thenNodeIsAt((Image) image.getChild(4), 5, 5, 190, 90); // cc
+        thenNodeIsAt((Image) image.getChild(5), 5, 95, 190, 5); // cb
 
-        thenNodeIsAt((Image)image.getChild(6), 195, 0, 5, 5); // rt
-        thenNodeIsAt((Image)image.getChild(7), 195, 5, 5, 90); // rc
-        thenNodeIsAt((Image)image.getChild(8), 195, 95, 5, 5); // rb
+        thenNodeIsAt((Image) image.getChild(6), 195, 0, 5, 5); // rt
+        thenNodeIsAt((Image) image.getChild(7), 195, 5, 5, 90); // rc
+        thenNodeIsAt((Image) image.getChild(8), 195, 95, 5, 5); // rb
     }
 }

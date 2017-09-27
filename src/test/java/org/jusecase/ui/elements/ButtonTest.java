@@ -1,7 +1,7 @@
 package org.jusecase.ui.elements;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.jusecase.ui.UiTest;
 import org.jusecase.ui.touch.TouchPhase;
 
@@ -16,7 +16,7 @@ public class ButtonTest extends UiTest {
 
     List<Element> buttonClickEvents = new ArrayList<>();
 
-    @Before
+    @BeforeEach
     public void setUp() {
         button.setWidth(100);
         button.setHeight(40);
@@ -69,12 +69,12 @@ public class ButtonTest extends UiTest {
 
     @Test
     public void buttonClick_multitouch() {
-        givenTouchEvent(1,60, 10, TouchPhase.Begin);
-        givenTouchEvent(1,200, 200, TouchPhase.Move);
-        givenTouchEvent(2,60, 10, TouchPhase.Begin);
-        givenTouchEvent(2,200, 200, TouchPhase.Move);
-        givenTouchEvent(1,60, 10, TouchPhase.End);
-        givenTouchEvent(2,200, 10, TouchPhase.End);
+        givenTouchEvent(1, 60, 10, TouchPhase.Begin);
+        givenTouchEvent(1, 200, 200, TouchPhase.Move);
+        givenTouchEvent(2, 60, 10, TouchPhase.Begin);
+        givenTouchEvent(2, 200, 200, TouchPhase.Move);
+        givenTouchEvent(1, 60, 10, TouchPhase.End);
+        givenTouchEvent(2, 200, 10, TouchPhase.End);
 
         whenTouchEventsAreProcessed();
 

@@ -1,7 +1,7 @@
 package org.jusecase.scenegraph.render;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.jusecase.scenegraph.Node;
 import org.jusecase.scenegraph.Node2d;
 import org.jusecase.scenegraph.Quad;
@@ -33,7 +33,7 @@ public class PaintersAlgorithmRendererTest {
         }
     });
 
-    @Before
+    @BeforeEach
     public void setUp() {
         root.add(node1.setX(0).setSize(10, 10));
         root.add(node2.setX(1).setSize(10, 10));
@@ -71,7 +71,7 @@ public class PaintersAlgorithmRendererTest {
         thenRenderedNodesAre(root, node1);
     }
 
-    private void thenRenderedNodesAre(Node ... values) {
+    private void thenRenderedNodesAre(Node... values) {
         assertThat(renderedNodes).containsExactly(values);
     }
 }

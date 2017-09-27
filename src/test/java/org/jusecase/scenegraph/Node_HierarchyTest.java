@@ -1,7 +1,7 @@
 package org.jusecase.scenegraph;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.jusecase.ui.UiTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,7 +13,7 @@ public class Node_HierarchyTest extends UiTest {
     Node child = new Node();
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
         ui.add(parent);
         parent.add(child);
@@ -44,8 +44,9 @@ public class Node_HierarchyTest extends UiTest {
         assertThat(parent.getChildren()).contains(child);
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void getChildAt() {
-        child.getChild(0);
+        Throwable throwable = catchThrowable(() -> child.getChild(0));
+        assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class).hasMessage("Index: 0, Size: 0");
     }
 }

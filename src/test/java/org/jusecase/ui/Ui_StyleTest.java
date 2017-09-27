@@ -1,6 +1,6 @@
 package org.jusecase.ui;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jusecase.scenegraph.color.Color;
 import org.jusecase.ui.elements.Button;
 import org.jusecase.ui.elements.Element;

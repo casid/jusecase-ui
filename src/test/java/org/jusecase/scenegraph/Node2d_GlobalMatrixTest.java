@@ -1,8 +1,8 @@
 package org.jusecase.scenegraph;
 
 import org.assertj.core.data.Offset;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.offset;
@@ -13,7 +13,7 @@ public class Node2d_GlobalMatrixTest {
     Node2d parent = new Node2d();
     Node2d child = new Node2d();
 
-    @Before
+    @BeforeEach
     public void setUp() {
         parent.add(child);
         parent.setX(20);

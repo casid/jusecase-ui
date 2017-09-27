@@ -1,6 +1,6 @@
 package org.jusecase.scenegraph;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jusecase.scenegraph.texture.TextureMock;
 
 import static org.assertj.core.api.Assertions.assertThat;
