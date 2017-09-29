@@ -1,4 +1,6 @@
-package org.jusecase.ui.touch;
+package org.jusecase.ui.signal;
+
+import org.jusecase.ui.touch.TouchEvent;
 
 @FunctionalInterface
 public interface OnTouch {

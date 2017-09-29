@@ -4,8 +4,8 @@ import org.jusecase.scenegraph.Node;
 import org.jusecase.signals.Signal;
 import org.jusecase.ui.Ui;
 import org.jusecase.ui.style.Style;
-import org.jusecase.ui.touch.OnHover;
-import org.jusecase.ui.touch.OnTouch;
+import org.jusecase.ui.signal.OnHover;
+import org.jusecase.ui.signal.OnTouch;
 import org.jusecase.scenegraph.Node2d;
 
 public class Element extends Node2d {

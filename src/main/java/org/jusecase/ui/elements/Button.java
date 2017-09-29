@@ -2,7 +2,7 @@ package org.jusecase.ui.elements;
 
 import org.jusecase.signals.Signal;
 import org.jusecase.ui.style.Style;
-import org.jusecase.ui.touch.OnClick;
+import org.jusecase.ui.signal.OnClick;
 import org.jusecase.ui.touch.TouchEvent;
 import org.jusecase.ui.touch.TouchPhase;
 

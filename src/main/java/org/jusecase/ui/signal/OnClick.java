@@ -1,4 +1,4 @@
-package org.jusecase.ui.touch;
+package org.jusecase.ui.signal;
 
 import org.jusecase.ui.elements.Element;
 
