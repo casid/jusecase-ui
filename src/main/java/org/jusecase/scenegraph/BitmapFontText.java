@@ -21,24 +21,30 @@ public class BitmapFontText extends Node2d {
     }
 
     private void rebuildImages() {
+        removeAll();
+
         int x = 0;
+        int y = 0;
         char previousCharacter = 0;
 
         int length = text.length();
         for (int i = 0; i < length; ++i) {
             char currentCharacter = text.charAt(i);
-            BitmapFontCharacter character = bitmapFont.getCharacter(currentCharacter);
-            if (character == null) {
-                continue;
-            }
-
             int kerning = bitmapFont.getKerning(previousCharacter, currentCharacter);
-
-            Image image = new Image(character.texture);
-            add(image.setPosition(x + kerning + character.offsetX, character.offsetY));
-
-            x += character.advanceX + kerning;
             previousCharacter = currentCharacter;
+
+            if (currentCharacter == '\n') {
+                x = 0;
+                y += bitmapFont.getLineHeight();
+            } else {
+                BitmapFontCharacter character = bitmapFont.getCharacter(currentCharacter);
+                if (character != null) {
+                    Image image = new Image(character.texture);
+                    add(image.setPosition(x + kerning + character.offsetX, y + character.offsetY));
+
+                    x += character.advanceX + kerning;
+                }
+            }
         }
     }
 }

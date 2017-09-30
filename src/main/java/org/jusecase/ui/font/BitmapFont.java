@@ -12,6 +12,7 @@ public class BitmapFont {
     private final Map<Character, BitmapFontCharacter> characters;
     private final Map<String, Integer> kernings;
     private final Collection<Texture> textures;
+    private int lineHeight;
 
     public BitmapFont(List<BitmapFontCharacter> characters, Map<String, Integer> kernings, Collection<Texture> textures) {
         this.characters = new HashMap<>(characters.size());
@@ -33,5 +34,13 @@ public class BitmapFont {
 
     public void dispose() {
         textures.forEach(Texture::dispose);
+    }
+
+    public int getLineHeight() {
+        return lineHeight;
+    }
+
+    public void setLineHeight(int lineHeight) {
+        this.lineHeight = lineHeight;
     }
 }

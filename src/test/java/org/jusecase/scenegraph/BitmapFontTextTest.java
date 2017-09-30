@@ -43,13 +43,31 @@ class BitmapFontTextTest extends UiTest {
     }
 
     @Test
-    void twoChars() {
+    void textIsReset() {
+        whenTextIsSet("A");
+        whenTextIsSet("B");
+
+        thenImageCountIs(1);
+    }
+
+    @Test
+    void kerningAndOffset() {
         whenTextIsSet("ABA");
 
         thenImageCountIs(3);
         thenNodeIsAt(getImage(0), 0, 0, 10, 20); //  - A = 0 kerning
         thenNodeIsAt(getImage(1), 10 - 2 + 1, -1, 20, 20); // A - B = -2 kerning + offset(1, -1)
         thenNodeIsAt(getImage(2), 10 - 2 + 15, 0, 10, 20); // B - A = 0 kerning
+    }
+
+    @Test
+    void lineBreak() {
+        font.setLineHeight(14);
+
+        whenTextIsSet("A\nA");
+
+        thenImageCountIs(2);
+        thenNodeIsAt(getImage(1), 0, 14, 10, 20);
     }
 
     private void givenEmptyFont() {
@@ -86,7 +104,9 @@ class BitmapFontTextTest extends UiTest {
     }
 
     private void whenTextIsSet(String text) {
-        this.text = new BitmapFontText(font);
+        if (this.text == null) {
+            this.text = new BitmapFontText(font);
+        }
         this.text.setText(text);
     }
 
