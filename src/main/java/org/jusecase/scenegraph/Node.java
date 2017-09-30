@@ -103,7 +103,7 @@ public class Node implements Cloneable {
                 if (nodeClass.isInstance(child)) {
                     visitor.accept(nodeClass.cast(child));
                 }
-                child.visitBottomUp(nodeClass, visitor);
+                child.visitBottomUpChildren(nodeClass, visitor);
             }
         }
     }

@@ -2,8 +2,10 @@ package org.jusecase.scenegraph;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.jusecase.scenegraph.math.Vector2;
 import org.jusecase.scenegraph.texture.TextureMock;
 import org.jusecase.ui.UiTest;
+import org.jusecase.ui.font.Align;
 import org.jusecase.ui.font.BitmapFont;
 import org.jusecase.ui.font.BitmapFontCharacter;
 
@@ -19,8 +21,10 @@ import static org.jusecase.Builders.map;
 
 class BitmapFontTextTest extends UiTest {
 
+    BitmapFont font;
+    Align align = Align.LEFT;
+
     BitmapFontText text;
-    private BitmapFont font;
 
     @BeforeEach
     void setUp() {
@@ -86,6 +90,48 @@ class BitmapFontTextTest extends UiTest {
         thenNodeIsAt(getImage(1), 0, 14, 10, 20);
     }
 
+    @Test
+    void align_right() {
+        align = Align.RIGHT;
+
+        whenTextIsSet("A");
+
+        thenImageCountIs(1);
+        thenNodeIsAt(getImage(0), -10, 0, 10, 20);
+    }
+
+    @Test
+    void align_center() {
+        align = Align.CENTER;
+
+        whenTextIsSet("A");
+
+        thenImageCountIs(1);
+        thenNodeIsAt(getImage(0), -5, 0, 10, 20);
+    }
+
+    @Test
+    void align_multipleLines() {
+        align = Align.CENTER;
+
+        whenTextIsSet("A\nAA");
+
+        thenImageCountIs(3);
+        thenNodeIsAt(getImage(0), -5, 0, 10, 20);
+        thenNodeIsAt(getImage(1), -10, 14, 10, 20);
+    }
+
+    @Test
+    void align_change() {
+        align = Align.RIGHT;
+
+        whenTextIsSet("A");
+        text.setAlign(Align.CENTER);
+
+        thenImageCountIs(1);
+        thenNodeIsAt(getImage(0), -5, 0, 10, 20);
+    }
+
     private void givenEmptyFont() {
         font = new BitmapFont(a(list()), a(map()), null);
     }
@@ -123,12 +169,13 @@ class BitmapFontTextTest extends UiTest {
     private void whenTextIsSet(String text) {
         if (this.text == null) {
             this.text = new BitmapFontText(font);
+            this.text.setAlign(align);
         }
         this.text.setText(text);
     }
 
     private void thenImageCountIs(int expected) {
-        assertThat(text.getChildCount()).isEqualTo(expected);
+        assertThat(getImages()).hasSize(expected);
     }
 
     private void thenSizeIs(int width, int height) {
@@ -136,7 +183,22 @@ class BitmapFontTextTest extends UiTest {
         assertThat(text.getHeight()).isEqualTo(height);
     }
 
+    private void thenNodeIsAt(Image node, float x, float y, float w, float h) {
+        Vector2 pos = node.getGlobalMatrix().transformPoint(0, 0);
+
+        assertThat(pos.x).describedAs("x").isEqualTo(x);
+        assertThat(pos.y).describedAs("y").isEqualTo(y);
+        assertThat(node.getWidth()).describedAs("w").isEqualTo(w);
+        assertThat(node.getHeight()).describedAs("h").isEqualTo(h);
+    }
+
     private Image getImage(int index) {
-        return (Image) text.getChild(index);
+        return getImages().get(index);
+    }
+
+    private List<Image> getImages() {
+        List<Image> images = new ArrayList<>();
+        text.visitBottomUpChildren(Image.class, images::add);
+        return images;
     }
 }

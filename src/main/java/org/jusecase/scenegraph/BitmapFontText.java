@@ -1,11 +1,13 @@
 package org.jusecase.scenegraph;
 
+import org.jusecase.ui.font.Align;
 import org.jusecase.ui.font.BitmapFont;
 import org.jusecase.ui.font.BitmapFontCharacter;
 
 public class BitmapFontText extends Node2d {
     private final BitmapFont bitmapFont;
     private String text;
+    private Align align;
 
     public BitmapFontText(BitmapFont bitmapFont) {
         this.bitmapFont = bitmapFont;
@@ -22,6 +24,11 @@ public class BitmapFontText extends Node2d {
 
     private void rebuildImages() {
         removeAll();
+        if (text == null) {
+            return;
+        }
+
+        Node2d line = addLine();
 
         int x = 0;
         int y = 0;
@@ -35,22 +42,44 @@ public class BitmapFontText extends Node2d {
             previousCharacter = currentCharacter;
 
             if (currentCharacter == '\n') {
+                line = addLine();
                 x = 0;
                 y += bitmapFont.getLineHeight();
             } else {
                 BitmapFontCharacter character = bitmapFont.getCharacter(currentCharacter);
                 if (character != null) {
                     Image image = new Image(character.texture);
-                    add(image.setPosition(x + kerning + character.offsetX, y + character.offsetY));
+                    line.add(image.setPosition(x + kerning + character.offsetX, y + character.offsetY));
 
                     x += character.advanceX + kerning;
                     if (x > maxX) {
                         maxX = x;
+                        line.setWidth(maxX);
                     }
                 }
             }
         }
 
         setSize(maxX, y + bitmapFont.getLineHeight());
+    }
+
+    private Node2d addLine() {
+        Node2d line = new Node2d();
+        if (align == Align.RIGHT) {
+            line.setPivotX(1);
+        } else if (align == Align.CENTER) {
+            line.setPivotX(0.5f);
+        }
+        add(line);
+        return line;
+    }
+
+    public void setAlign(Align align) {
+        this.align = align;
+        rebuildImages();
+    }
+
+    public Align getAlign() {
+        return align;
     }
 }
