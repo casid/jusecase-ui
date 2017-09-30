@@ -78,7 +78,7 @@ public class Node implements Cloneable {
     }
 
     public int getChildCount() {
-        return children.size();
+        return children == null ? 0 : children.size();
     }
 
     public List<Node> getChildren() {

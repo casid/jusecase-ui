@@ -1,9 +1,14 @@
 package org.jusecase.scenegraph.texture;
 
+import org.assertj.core.api.Assertions;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class TextureMock implements Texture {
 
     private int width;
     private int height;
+    private boolean disposed;
 
     public void givenSize(int width, int height) {
         this.width = width;
@@ -32,5 +37,10 @@ public class TextureMock implements Texture {
 
     @Override
     public void dispose() {
+        disposed = true;
+    }
+
+    public void thenTextureIsDisposed() {
+        assertThat(disposed).isTrue();
     }
 }
