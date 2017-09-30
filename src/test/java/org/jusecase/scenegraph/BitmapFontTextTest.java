@@ -61,9 +61,25 @@ class BitmapFontTextTest extends UiTest {
     }
 
     @Test
-    void lineBreak() {
-        font.setLineHeight(14);
+    void size_empty() {
+        whenTextIsSet("");
+        thenSizeIs(0, 14);
+    }
 
+    @Test
+    void size_oneLine() {
+        whenTextIsSet("AAA");
+        thenSizeIs(30, 14);
+    }
+
+    @Test
+    void size_twoLines() {
+        whenTextIsSet("AAA\nAAAA\nA");
+        thenSizeIs(40, 3 * 14);
+    }
+
+    @Test
+    void lineBreak() {
         whenTextIsSet("A\nA");
 
         thenImageCountIs(2);
@@ -101,6 +117,7 @@ class BitmapFontTextTest extends UiTest {
         kernings.put("AB", -2);
 
         font = new BitmapFont(characterList, kernings, null);
+        font.setLineHeight(14);
     }
 
     private void whenTextIsSet(String text) {
@@ -112,6 +129,11 @@ class BitmapFontTextTest extends UiTest {
 
     private void thenImageCountIs(int expected) {
         assertThat(text.getChildCount()).isEqualTo(expected);
+    }
+
+    private void thenSizeIs(int width, int height) {
+        assertThat(text.getWidth()).isEqualTo(width);
+        assertThat(text.getHeight()).isEqualTo(height);
     }
 
     private Image getImage(int index) {

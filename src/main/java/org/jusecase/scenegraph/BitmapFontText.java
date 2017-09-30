@@ -25,6 +25,7 @@ public class BitmapFontText extends Node2d {
 
         int x = 0;
         int y = 0;
+        int maxX = 0;
         char previousCharacter = 0;
 
         int length = text.length();
@@ -43,8 +44,13 @@ public class BitmapFontText extends Node2d {
                     add(image.setPosition(x + kerning + character.offsetX, y + character.offsetY));
 
                     x += character.advanceX + kerning;
+                    if (x > maxX) {
+                        maxX = x;
+                    }
                 }
             }
         }
+
+        setSize(maxX, y + bitmapFont.getLineHeight());
     }
 }
