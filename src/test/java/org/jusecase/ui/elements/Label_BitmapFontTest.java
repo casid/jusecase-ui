@@ -1,7 +1,9 @@
-package org.jusecase.scenegraph;
+package org.jusecase.ui.elements;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.jusecase.scenegraph.Image;
 import org.jusecase.scenegraph.math.Vector2;
 import org.jusecase.scenegraph.texture.TextureMock;
 import org.jusecase.ui.UiTest;
@@ -15,16 +17,14 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.jusecase.Builders.a;
-import static org.jusecase.Builders.list;
-import static org.jusecase.Builders.map;
+import static org.jusecase.Builders.*;
 
-class BitmapFontTextTest extends UiTest {
+class Label_BitmapFontTest extends UiTest {
 
     BitmapFont font;
     Align align = Align.LEFT;
 
-    BitmapFontText text;
+    Label text;
 
     @BeforeEach
     void setUp() {
@@ -168,7 +168,7 @@ class BitmapFontTextTest extends UiTest {
 
     private void whenTextIsSet(String text) {
         if (this.text == null) {
-            this.text = new BitmapFontText(font);
+            this.text = new Label(font);
             this.text.setAlign(align);
         }
         this.text.setText(text);

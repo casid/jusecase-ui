@@ -4,26 +4,18 @@ import org.jusecase.ui.font.Align;
 import org.jusecase.ui.font.BitmapFont;
 import org.jusecase.ui.font.BitmapFontCharacter;
 
-public class BitmapFontText extends Node2d {
+public class BitmapFontText extends Text {
     private final BitmapFont bitmapFont;
-    private String text;
-    private Align align;
+
 
     public BitmapFontText(BitmapFont bitmapFont) {
         this.bitmapFont = bitmapFont;
     }
 
-    public void setText(String text) {
-        this.text = text;
-        rebuildImages();
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    private void rebuildImages() {
+    @Override
+    protected void updateLayout() {
         removeAll();
+
         if (text == null) {
             return;
         }
@@ -72,14 +64,5 @@ public class BitmapFontText extends Node2d {
         }
         add(line);
         return line;
-    }
-
-    public void setAlign(Align align) {
-        this.align = align;
-        rebuildImages();
-    }
-
-    public Align getAlign() {
-        return align;
     }
 }

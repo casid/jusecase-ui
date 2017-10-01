@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BitmapFont {
+public class BitmapFont implements Font {
     private final Map<Character, BitmapFontCharacter> characters;
     private final Map<String, Integer> kernings;
     private final Collection<Texture> textures;
