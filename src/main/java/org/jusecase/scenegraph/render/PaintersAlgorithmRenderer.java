@@ -1,7 +1,7 @@
 package org.jusecase.scenegraph.render;
 
 import org.jusecase.scenegraph.Node;
-import org.jusecase.scenegraph.Node2d;
+import org.jusecase.scenegraph.node2d.Node2d;
 
 public class PaintersAlgorithmRenderer implements Renderer {
     private final Renderer renderer;

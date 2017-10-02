@@ -1,6 +1,6 @@
 package org.jusecase.ui.style;
 
-import org.jusecase.scenegraph.Node2d;
+import org.jusecase.scenegraph.node2d.Node2d;
 import org.jusecase.ui.elements.Button;
 
 public abstract class ButtonStyle<N extends Node2d> extends Style<Button> {

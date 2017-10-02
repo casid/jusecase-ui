@@ -1,9 +1,8 @@
 package org.jusecase.ui.elements;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jusecase.scenegraph.Image;
+import org.jusecase.scenegraph.node2d.Image;
 import org.jusecase.scenegraph.math.Vector2;
 import org.jusecase.scenegraph.texture.TextureMock;
 import org.jusecase.ui.UiTest;

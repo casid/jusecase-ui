@@ -1,6 +1,6 @@
 package org.jusecase.ui;
 
-import org.jusecase.scenegraph.Node2d;
+import org.jusecase.scenegraph.node2d.Node2d;
 import org.jusecase.ui.touch.TouchEvent;
 import org.jusecase.ui.touch.TouchPhase;
 

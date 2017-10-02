@@ -6,7 +6,7 @@ import org.jusecase.ui.Ui;
 import org.jusecase.ui.style.Style;
 import org.jusecase.ui.signal.OnHover;
 import org.jusecase.ui.signal.OnTouch;
-import org.jusecase.scenegraph.Node2d;
+import org.jusecase.scenegraph.node2d.Node2d;
 
 public class Element extends Node2d {
     public final Signal<OnTouch> onTouch = new Signal<>();

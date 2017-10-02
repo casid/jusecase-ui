@@ -1,4 +1,4 @@
-package org.jusecase.scenegraph;
+package org.jusecase.scenegraph.node2d;
 
 import org.jusecase.scenegraph.texture.Texture;
 import org.jusecase.scenegraph.texture.TextureAtlas;

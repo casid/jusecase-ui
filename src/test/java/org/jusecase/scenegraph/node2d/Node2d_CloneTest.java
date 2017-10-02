@@ -1,6 +1,7 @@
-package org.jusecase.scenegraph;
+package org.jusecase.scenegraph.node2d;
 
 import org.junit.jupiter.api.Test;
+import org.jusecase.scenegraph.node2d.Node2d;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

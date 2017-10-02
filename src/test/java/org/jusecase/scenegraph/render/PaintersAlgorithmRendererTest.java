@@ -3,8 +3,8 @@ package org.jusecase.scenegraph.render;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.jusecase.scenegraph.Node;
-import org.jusecase.scenegraph.Node2d;
-import org.jusecase.scenegraph.Quad;
+import org.jusecase.scenegraph.node2d.Node2d;
+import org.jusecase.scenegraph.node2d.Quad;
 
 import java.util.ArrayList;
 import java.util.List;

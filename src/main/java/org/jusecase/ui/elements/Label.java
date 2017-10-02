@@ -1,7 +1,7 @@
 package org.jusecase.ui.elements;
 
-import org.jusecase.scenegraph.BitmapFontText;
-import org.jusecase.scenegraph.Text;
+import org.jusecase.scenegraph.node2d.BitmapFontText;
+import org.jusecase.scenegraph.node2d.Text;
 import org.jusecase.ui.font.Align;
 import org.jusecase.ui.font.BitmapFont;
 import org.jusecase.ui.font.Font;

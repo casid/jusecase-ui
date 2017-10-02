@@ -1,6 +1,6 @@
 package org.jusecase.ui.style;
 
-import org.jusecase.scenegraph.Quad;
+import org.jusecase.scenegraph.node2d.Quad;
 import org.jusecase.scenegraph.color.Color;
 
 public class QuadButtonStyle extends ButtonStyle<Quad> {
