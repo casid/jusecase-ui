@@ -18,11 +18,4 @@ public class Quad extends Node2d {
     public boolean isRenderable() {
         return true;
     }
-
-    @Override
-    public Quad clone() {
-        Quad quad = (Quad)super.clone();
-        quad.color = color.clone();
-        return quad;
-    }
 }

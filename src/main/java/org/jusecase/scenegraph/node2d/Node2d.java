@@ -17,9 +17,9 @@ public class Node2d extends Node {
     private float pivotX;
     private float pivotY;
 
-    private Matrix3x2 localMatrix = new Matrix3x2();
-    private Matrix3x2 globalMatrix = new Matrix3x2();
-    private Matrix3x2 globalMatrixInverse = new Matrix3x2();
+    private final Matrix3x2 localMatrix = new Matrix3x2();
+    private final Matrix3x2 globalMatrix = new Matrix3x2();
+    private final Matrix3x2 globalMatrixInverse = new Matrix3x2();
 
     private boolean dirtyLocalMatrix;
     private boolean dirtyGlobalMatrix;
@@ -211,15 +211,6 @@ public class Node2d extends Node {
             dirtyGlobalMatrixInverse = false;
         }
         return globalMatrixInverse;
-    }
-
-    @Override
-    public Node2d clone() {
-        Node2d clone = (Node2d) super.clone();
-        clone.localMatrix = localMatrix.clone();
-        clone.globalMatrix = globalMatrix.clone();
-        clone.globalMatrixInverse = globalMatrixInverse.clone();
-        return clone;
     }
 
     public Node2d setPivot(float x, float y) {

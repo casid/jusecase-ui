@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class Node implements Cloneable {
+public class Node {
 
     private static final List<Node> EMPTY_NODE_LIST = Collections.unmodifiableList(new ArrayList<>());
 
@@ -171,18 +171,6 @@ public class Node implements Cloneable {
 
     public void removeFromParent() {
         parent.remove(this);
-    }
-
-    @Override
-    public Node clone() {
-        try {
-            Node clone = (Node)super.clone();
-            clone.parent = null;
-            clone.children = null;
-            return clone;
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException("Most unexpected - clone didn't work", e);
-        }
     }
 
     public boolean isRenderable() {
