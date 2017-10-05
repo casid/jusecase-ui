@@ -2,8 +2,6 @@ package org.jusecase.scenegraph.node2d;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jusecase.scenegraph.node2d.Image;
-import org.jusecase.scenegraph.node2d.Image9Slice;
 import org.jusecase.scenegraph.texture.TextureAtlas;
 import org.jusecase.scenegraph.texture.TextureMock;
 import org.jusecase.ui.UiTest;

@@ -1,7 +1,6 @@
 package org.jusecase.scenegraph.node2d;
 
 import org.junit.jupiter.api.Test;
-import org.jusecase.scenegraph.node2d.Image;
 import org.jusecase.scenegraph.texture.TextureMock;
 
 import static org.assertj.core.api.Assertions.assertThat;

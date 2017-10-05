@@ -2,7 +2,6 @@ package org.jusecase.scenegraph.node2d;
 
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
-import org.jusecase.scenegraph.node2d.Node2d;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.offset;
