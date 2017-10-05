@@ -1,52 +1,37 @@
 package org.jusecase.ui.style;
 
-import org.jusecase.scenegraph.node2d.Node2d;
-import org.jusecase.ui.elements.Button;
+import org.jusecase.scenegraph.color.Color;
+import org.jusecase.scenegraph.texture.Texture;
+import org.jusecase.ui.font.Font;
 
-public abstract class ButtonStyle<N extends Node2d> extends Style<Button> {
-    public N active;
-    public N pressed;
-    public N hovered;
+public class ButtonStyle extends Style {
 
-    private N current;
+    public State active = new State();
+    public State pressed = new State();
+    public State hovered = new State();
 
     @Override
-    public void update() {
-        if (element.isPressed()) {
-            setCurrent(pressed);
-        } else {
-            if (element.isHovered()) {
-                setCurrent(hovered);
-            } else {
-                setCurrent(active);
-            }
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public ButtonStyle<N> clone() {
-        ButtonStyle<N> clone = (ButtonStyle<N>) super.clone();
-        clone.active = (N)active.clone();
-        clone.pressed = (N)pressed.clone();
-        clone.hovered = (N)hovered.clone();
-        clone.current = null;
-
+    public Style clone() {
+        ButtonStyle clone = (ButtonStyle) super.clone();
+        clone.active = active.clone();
+        clone.pressed = pressed.clone();
+        clone.hovered = hovered.clone();
         return clone;
     }
 
-    private void setCurrent(N skin) {
-        if (skin != current) {
-            if (current != null) {
-                current.removeFromParent();
-            }
+    public static class State implements Cloneable {
+        public Color color = new Color(1.0f);
+        public Texture texture;
+        public Font font;
 
-            current = skin;
-
-            if (current != null) {
-                current.setWidth(element.getWidth());
-                current.setHeight(element.getHeight());
-                element.addFirst(current);
+        @Override
+        public State clone() {
+            try {
+                State clone = (State) super.clone();
+                clone.color = color.clone();
+                return clone;
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
             }
         }
     }

@@ -20,11 +20,8 @@ public class Element extends Node2d {
         return style;
     }
 
-    @SuppressWarnings("unchecked")
     public void setStyle(Style style) {
-        this.style = style.clone();
-        this.style.init(this);
-        this.style.update();
+        this.style = style;
     }
 
     @Override

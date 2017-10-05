@@ -26,7 +26,7 @@ public class Ui extends Element {
         if (element.getStyle() == null) {
             Style style = styleByClass.get(element.getClass());
             if (style != null) {
-                element.setStyle(style);
+                element.setStyle(style.clone());
             }
         }
     }
@@ -109,12 +109,12 @@ public class Ui extends Element {
         return reference.get();
     }
 
-    public <E extends Element> void setDefaultStyle(Class<E> elementClass, Style<E> style) {
+    public <E extends Element> void setDefaultStyle(Class<E> elementClass, Style style) {
         styleByClass.put(elementClass, style);
     }
 
     @SuppressWarnings("unchecked")
-    public <E extends Element> Style<E> getDefaultStyle(Class<E> elementClass) {
+    public <E extends Element> Style getDefaultStyle(Class<E> elementClass) {
         return styleByClass.get(elementClass);
     }
 }

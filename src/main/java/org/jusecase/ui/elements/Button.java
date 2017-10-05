@@ -1,8 +1,11 @@
 package org.jusecase.ui.elements;
 
+import org.jusecase.scenegraph.node2d.Image;
+import org.jusecase.scenegraph.node2d.Quad;
 import org.jusecase.signals.Signal;
-import org.jusecase.ui.style.Style;
 import org.jusecase.ui.signal.OnClick;
+import org.jusecase.ui.style.ButtonStyle;
+import org.jusecase.ui.style.Style;
 import org.jusecase.ui.touch.TouchEvent;
 import org.jusecase.ui.touch.TouchPhase;
 
@@ -11,6 +14,8 @@ public class Button extends Element {
 
     private boolean pressed;
     private boolean hovered;
+
+    private Quad background;
 
     public Button() {
         onTouch.add(this::onTouch);
@@ -35,10 +40,50 @@ public class Button extends Element {
     }
 
     private void update() {
-        Style style = getStyle();
+        ButtonStyle style = getStyle();
         if (style != null) {
-            style.update();
+
+            if (pressed) {
+                applyStyle(style.pressed);
+            } else {
+                if (hovered) {
+                    applyStyle(style.hovered);
+                } else {
+                    applyStyle(style.active);
+                }
+            }
         }
+    }
+
+    @Override
+    public ButtonStyle getStyle() {
+        return (ButtonStyle) super.getStyle();
+    }
+
+    @Override
+    public void setStyle(Style style) {
+        if (!(style instanceof ButtonStyle)) {
+            throw new IllegalStateException("Unsupported style " + style.getClass());
+        }
+        super.setStyle(style);
+
+        update();
+    }
+
+    private void applyStyle(ButtonStyle.State state) {
+        // TODO backgrounds with different textures, texture changes ...
+        if (background == null) {
+            if (state.texture != null) {
+                background = new Image(state.texture);
+                setSize(background.getWidth(), background.getHeight());
+            } else {
+                background = new Quad();
+            }
+            addFirst(background);
+        }
+
+        background.setColor(state.color);
+        background.setSize(getWidth(), getHeight());
     }
 
     private void onHover(boolean started) {

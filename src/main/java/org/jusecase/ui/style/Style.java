@@ -1,21 +1,12 @@
 package org.jusecase.ui.style;
 
-import org.jusecase.ui.elements.Element;
-
-public abstract class Style<E extends Element> implements Cloneable {
-    protected E element;
-
-    public void init(E element) {
-        this.element = element;
-    }
-
-    public abstract void update();
+public abstract class Style implements Cloneable {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Style<E> clone() {
+    public Style clone() {
         try {
-            return (Style<E>) super.clone();
+            return (Style) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException("Most unexpected - clone didn't work", e);
         }
