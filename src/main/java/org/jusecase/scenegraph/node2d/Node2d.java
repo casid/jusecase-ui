@@ -231,4 +231,12 @@ public class Node2d extends Node {
         resetMatrices();
         return this;
     }
+
+    public float getPivotX() {
+        return pivotX;
+    }
+
+    public float getPivotY() {
+        return pivotY;
+    }
 }

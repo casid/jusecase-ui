@@ -97,6 +97,16 @@ public class Node {
         visitBottomUpChildren(nodeClass, visitor);
     }
 
+    public <T extends Node> void visitAllDirectChildren(Class<T> nodeClass, Consumer<T> visitor) {
+        if (children != null) {
+            for (Node child : children) {
+                if (nodeClass.isInstance(child)) {
+                    visitor.accept(nodeClass.cast(child));
+                }
+            }
+        }
+    }
+
     public <T extends Node> void visitBottomUpChildren(Class<T> nodeClass, Consumer<T> visitor) {
         if (children != null) {
             for (Node child : children) {

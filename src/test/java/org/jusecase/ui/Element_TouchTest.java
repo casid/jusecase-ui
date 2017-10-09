@@ -52,6 +52,14 @@ public class Element_TouchTest extends UiTest {
     }
 
     @Test
+    public void element2_1_notTouchable() {
+        givenTouchEvent(2, 0, TouchPhase.Begin);
+        element2_1.setTouchable(false);
+        whenTouchEventsAreProcessed();
+        thenSelectedElementsAre(element2);
+    }
+
+    @Test
     public void element2_2_1() {
         givenTouchEvent(4, 0, TouchPhase.Begin);
         whenTouchEventsAreProcessed();

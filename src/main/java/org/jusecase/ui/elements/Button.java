@@ -1,8 +1,10 @@
 package org.jusecase.ui.elements;
 
 import org.jusecase.scenegraph.node2d.Image;
+import org.jusecase.scenegraph.node2d.Node2d;
 import org.jusecase.scenegraph.node2d.Quad;
 import org.jusecase.signals.Signal;
+import org.jusecase.ui.font.Align;
 import org.jusecase.ui.signal.OnClick;
 import org.jusecase.ui.style.ButtonStyle;
 import org.jusecase.ui.style.Style;
@@ -16,6 +18,7 @@ public class Button extends Element {
     private boolean hovered;
 
     private Quad background;
+    private Label label;
 
     public Button() {
         onTouch.add(this::onTouch);
@@ -93,5 +96,50 @@ public class Button extends Element {
 
     public boolean isHovered() {
         return hovered;
+    }
+
+    public void setText(String text) {
+        if (label == null) {
+            label = new Label(getStyle().active.font);
+            label.setTouchable(false);
+            label.setAlign(Align.CENTER);
+            label.setVerticalAlign(0.5f);
+            label.setWidth(getWidth());
+            label.setHeight(getHeight());
+
+            add(label);
+        }
+
+        label.setText(text);
+    }
+
+    @Override
+    public Node2d setWidth(float width) {
+        super.setWidth(width);
+
+        if (background != null) {
+            background.setWidth(width);
+        }
+
+        if (label != null) {
+            label.setWidth(width);
+        }
+
+        return this;
+    }
+
+    @Override
+    public Node2d setHeight(float height) {
+        super.setHeight(height);
+
+        if (background != null) {
+            background.setHeight(height);
+        }
+
+        if (label != null) {
+            label.setHeight(height);
+        }
+
+        return this;
     }
 }

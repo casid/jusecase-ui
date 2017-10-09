@@ -23,7 +23,7 @@ class Label_BitmapFontTest extends UiTest {
     BitmapFont font;
     Align align = Align.LEFT;
 
-    Label text;
+    Label label;
 
     @BeforeEach
     void setUp() {
@@ -95,8 +95,17 @@ class Label_BitmapFontTest extends UiTest {
 
         whenTextIsSet("A");
 
-        thenImageCountIs(1);
         thenNodeIsAt(getImage(0), -10, 0, 10, 20);
+    }
+
+    @Test
+    void align_right_width() {
+        align = Align.RIGHT;
+
+        whenTextIsSet("A");
+        label.setWidth(100);
+
+        thenNodeIsAt(getImage(0), 90, 0, 10, 20);
     }
 
     @Test
@@ -105,8 +114,28 @@ class Label_BitmapFontTest extends UiTest {
 
         whenTextIsSet("A");
 
-        thenImageCountIs(1);
         thenNodeIsAt(getImage(0), -5, 0, 10, 20);
+    }
+
+    @Test
+    void align_center_width() {
+        align = Align.CENTER;
+
+        whenTextIsSet("A");
+        label.setWidth(100);
+
+        thenNodeIsAt(getImage(0), 45, 0, 10, 20);
+    }
+
+    @Test
+    void align_center_width2() {
+        align = Align.CENTER;
+
+        whenTextIsSet("A");
+        label.setWidth(100);
+        whenTextIsSet("A");
+
+        thenNodeIsAt(getImage(0), 45, 0, 10, 20);
     }
 
     @Test
@@ -125,10 +154,19 @@ class Label_BitmapFontTest extends UiTest {
         align = Align.RIGHT;
 
         whenTextIsSet("A");
-        text.setAlign(Align.CENTER);
+        label.setAlign(Align.CENTER);
 
         thenImageCountIs(1);
         thenNodeIsAt(getImage(0), -5, 0, 10, 20);
+    }
+
+    @Test
+    void verticalAlign() {
+        whenTextIsSet("A");
+        label.setVerticalAlign(0.5f);
+        label.setHeight(100);
+
+        thenNodeIsAt(getImage(0), 0, 43, 10, 20);
     }
 
     private void givenEmptyFont() {
@@ -166,11 +204,11 @@ class Label_BitmapFontTest extends UiTest {
     }
 
     private void whenTextIsSet(String text) {
-        if (this.text == null) {
-            this.text = new Label(font);
-            this.text.setAlign(align);
+        if (this.label == null) {
+            this.label = new Label(font);
+            this.label.setAlign(align);
         }
-        this.text.setText(text);
+        this.label.setText(text);
     }
 
     private void thenImageCountIs(int expected) {
@@ -178,8 +216,8 @@ class Label_BitmapFontTest extends UiTest {
     }
 
     private void thenSizeIs(int width, int height) {
-        assertThat(text.getWidth()).isEqualTo(width);
-        assertThat(text.getHeight()).isEqualTo(height);
+        assertThat(label.getTextWidth()).isEqualTo(width);
+        assertThat(label.getTextHeight()).isEqualTo(height);
     }
 
     private void thenNodeIsAt(Image node, float x, float y, float w, float h) {
@@ -197,7 +235,7 @@ class Label_BitmapFontTest extends UiTest {
 
     private List<Image> getImages() {
         List<Image> images = new ArrayList<>();
-        text.visitBottomUpChildren(Image.class, images::add);
+        label.visitBottomUpChildren(Image.class, images::add);
         return images;
     }
 }

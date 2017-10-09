@@ -42,7 +42,7 @@ public class Ui extends Element {
     }
 
     private boolean processTouch(TouchEvent touchEvent, Element touchedElement, Element element) {
-        if (element == touchedElement || element.hitTest(touchEvent.x, touchEvent.y)) {
+        if (element == touchedElement || isElementTouched(element, touchEvent)) {
             if (touchEvent.phase == TouchPhase.Begin) {
                 touchedElementsByTouchId.put(touchEvent.id, new WeakReference<>(element));
             }
@@ -60,7 +60,7 @@ public class Ui extends Element {
     }
 
     private boolean processHover(TouchEvent touchEvent, Element hoveredElement, Element element) {
-        if (element.hitTest(touchEvent.x, touchEvent.y)) {
+        if (isElementTouched(element, touchEvent)) {
             if (hoveredElement != null) {
                 hoveredElement.onHover.dispatch(s -> s.onHover(false));
             }
@@ -75,6 +75,10 @@ public class Ui extends Element {
         }
 
         return false;
+    }
+
+    private boolean isElementTouched(Element element, TouchEvent touchEvent) {
+        return element.isTouchable() && element.hitTest(touchEvent.x, touchEvent.y);
     }
 
 

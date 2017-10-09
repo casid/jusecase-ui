@@ -13,6 +13,11 @@ public class BitmapFontText extends Text {
     }
 
     @Override
+    public float getLineHeight() {
+        return bitmapFont.getLineHeight();
+    }
+
+    @Override
     protected void updateLayout() {
         removeAll();
 

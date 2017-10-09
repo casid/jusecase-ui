@@ -14,6 +14,7 @@ public class Element extends Node2d {
 
     private Ui ui;
     private Style style;
+    private boolean touchable = true;
 
 
     public Style getStyle() {
@@ -49,5 +50,13 @@ public class Element extends Node2d {
 
     public void setUi(Ui ui) {
         this.ui = ui;
+    }
+
+    public void setTouchable(boolean touchable) {
+        this.touchable = touchable;
+    }
+
+    public boolean isTouchable() {
+        return touchable;
     }
 }
