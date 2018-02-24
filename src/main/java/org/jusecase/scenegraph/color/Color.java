@@ -17,7 +17,7 @@ public final class Color implements Cloneable {
     }
 
     public Color(String hex, float alpha) {
-        this((HexParser.parse(hex) & 0x00ffffff) | ((int)(255.0 * alpha) << 24));
+        this((HexParser.parse(hex) & 0x00ffffff) | ((int) (255.0 * alpha) << 24));
     }
 
     public Color(float luminance) {
@@ -79,6 +79,51 @@ public final class Color implements Cloneable {
         a = color.a;
     }
 
+    public void setHsb(float hue, float saturation, float brightness) {
+        if (saturation == 0) {
+            r = g = b = brightness;
+        } else {
+            float h = (hue - (float)Math.floor(hue)) * 6.0f;
+            float f = h - (float)java.lang.Math.floor(h);
+            float p = brightness * (1.0f - saturation);
+            float q = brightness * (1.0f - saturation * f);
+            float t = brightness * (1.0f - (saturation * (1.0f - f)));
+            switch ((int) h) {
+                case 0:
+                    r = brightness;
+                    g = t;
+                    b = p;
+                    break;
+                case 1:
+                    r = q;
+                    g = brightness;
+                    b = p;
+                    break;
+                case 2:
+                    r = p;
+                    g = brightness;
+                    b = t;
+                    break;
+                case 3:
+                    r = p;
+                    g = q;
+                    b = brightness;
+                    break;
+                case 4:
+                    r = t;
+                    g = p;
+                    b = brightness;
+                    break;
+                case 5:
+                    r = brightness;
+                    g = p;
+                    b = q;
+                    break;
+            }
+        }
+
+    }
+
     public Color random() {
         r = (float) Math.random();
         g = (float) Math.random();
@@ -86,10 +131,15 @@ public final class Color implements Cloneable {
         return this;
     }
 
+    public Color randomHue() {
+        setHsb((float)Math.random(), 1, 1);
+        return this;
+    }
+
     @Override
     public Color clone() {
         try {
-            return (Color)super.clone();
+            return (Color) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
