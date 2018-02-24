@@ -8,8 +8,6 @@ import java.util.function.Predicate;
 
 public class Node {
 
-    private static final List<Node> EMPTY_NODE_LIST = Collections.unmodifiableList(new ArrayList<>());
-
     private Node parent;
     private List<Node> children;
     private boolean visible = true;
@@ -83,7 +81,7 @@ public class Node {
 
     public List<Node> getChildren() {
         if (children == null) {
-            return EMPTY_NODE_LIST;
+            return Collections.emptyList();
         } else {
             return Collections.unmodifiableList(children);
         }
