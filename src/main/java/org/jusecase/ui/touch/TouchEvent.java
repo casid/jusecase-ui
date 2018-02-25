@@ -2,7 +2,7 @@ package org.jusecase.ui.touch;
 
 import org.jusecase.ui.elements.Element;
 
-public class TouchEvent implements Cloneable {
+public class TouchEvent {
     public long id;
     public float x;
     public float y;
@@ -12,15 +12,6 @@ public class TouchEvent implements Cloneable {
     public Element element;
 
     @Override
-    public TouchEvent clone() {
-        try {
-            return (TouchEvent)super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
     public String toString() {
         return "TouchEvent{" +
                 "id=" + id +
@@ -28,5 +19,16 @@ public class TouchEvent implements Cloneable {
                 ", y=" + y +
                 ", phase=" + phase +
                 '}';
+    }
+
+    public TouchEvent copyTo(TouchEvent event) {
+        event.id = id;
+        event.x = x;
+        event.y = y;
+        event.deltaX = deltaX;
+        event.deltaY = deltaY;
+        event.phase = phase;
+        event.element = element;
+        return event;
     }
 }
