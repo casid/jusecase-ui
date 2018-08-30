@@ -79,6 +79,18 @@ public class Node {
         return children == null ? 0 : children.size();
     }
 
+    public <T extends Node> int getChildCount(Class<T> nodeClass) {
+        int count = 0;
+        if (children != null) {
+            for (Node child : children) {
+                if (nodeClass.isInstance(child)) {
+                    ++count;
+                }
+            }
+        }
+        return count;
+    }
+
     public List<Node> getChildren() {
         if (children == null) {
             return Collections.emptyList();
@@ -100,6 +112,17 @@ public class Node {
             for (Node child : children) {
                 if (nodeClass.isInstance(child)) {
                     visitor.accept(nodeClass.cast(child));
+                }
+            }
+        }
+    }
+
+    public <T extends Node> void visitAllDirectChildren(Class<T> nodeClass, Visitor<T> visitor) {
+        if (children != null) {
+            int index = 0;
+            for (Node child : children) {
+                if (nodeClass.isInstance(child)) {
+                    visitor.visit(nodeClass.cast(child), index++);
                 }
             }
         }
@@ -191,5 +214,9 @@ public class Node {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public interface Visitor<T extends Node> {
+        void visit(T node, int index);
     }
 }
