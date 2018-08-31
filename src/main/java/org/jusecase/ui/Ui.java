@@ -62,16 +62,16 @@ public class Ui extends Element {
     private boolean processHover(TouchEvent touchEvent, Element hoveredElement, Element element) {
         if (isElementTouched(element, touchEvent)) {
             if (hoveredElement != null) {
-                hoveredElement.onHover.dispatch(s -> s.onHover(false));
+                hoveredElement.onHover.dispatch(s -> s.onHover(hoveredElement, false));
             }
 
             hoveredElementsByTouchId.put(touchEvent.id, new WeakReference<>(element));
-            element.onHover.dispatch(s -> s.onHover(true));
+            element.onHover.dispatch(s -> s.onHover(element, true));
 
             return true;
         } else if (element == hoveredElement) {
             hoveredElementsByTouchId.remove(touchEvent.id);
-            element.onHover.dispatch(s -> s.onHover(false));
+            element.onHover.dispatch(s -> s.onHover(element, false));
         }
 
         return false;

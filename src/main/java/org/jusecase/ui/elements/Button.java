@@ -89,7 +89,7 @@ public class Button extends Element {
         background.setSize(getWidth(), getHeight());
     }
 
-    private void onHover(boolean started) {
+    private void onHover(Element element, boolean started) {
         hovered = started;
         update();
     }

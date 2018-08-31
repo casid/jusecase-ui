@@ -75,6 +75,50 @@ public class Node {
         return children.get(index);
     }
 
+    public int getChildIndex(Node child) {
+        if (children == null) {
+            return -1;
+        }
+        return children.indexOf(child);
+    }
+
+    public Node getSibling(Node child, int indexOffset) {
+        int childIndex = getChildIndex(child);
+        if (childIndex < 0) {
+            return null;
+        }
+
+        childIndex += indexOffset;
+        if (childIndex < 0 || childIndex >= children.size()) {
+            return null;
+        }
+
+        return children.get(childIndex);
+    }
+
+    public <T extends Node> T getSibling(T child, int indexOffset, Class<T> nodeClass) {
+        int childIndex = getChildIndex(child);
+        if (childIndex < 0) {
+            return null;
+        }
+
+        int signum = indexOffset >= 0 ? 1 : -1;
+        for (int i = 0; ; ++i) {
+            int nextIndex = childIndex + signum * i;
+            if (nextIndex < 0 || nextIndex >= children.size()) {
+                return null;
+            }
+
+            Node sibling = children.get(nextIndex);
+            if (nodeClass.isInstance(sibling)) {
+                if (indexOffset == 0) {
+                    return nodeClass.cast(sibling);
+                }
+                indexOffset -= signum;
+            }
+        }
+    }
+
     public int getChildCount() {
         return children == null ? 0 : children.size();
     }
