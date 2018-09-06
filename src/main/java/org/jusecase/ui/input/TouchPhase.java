@@ -1,4 +1,4 @@
-package org.jusecase.ui.touch;
+package org.jusecase.ui.input;
 
 public enum TouchPhase {
     Begin, Move, End, Hover

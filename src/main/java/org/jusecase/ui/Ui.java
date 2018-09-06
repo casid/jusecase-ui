@@ -1,9 +1,11 @@
 package org.jusecase.ui;
 
 import org.jusecase.ui.elements.Element;
+import org.jusecase.ui.input.Event;
+import org.jusecase.ui.input.ScrollEvent;
 import org.jusecase.ui.style.Style;
-import org.jusecase.ui.touch.TouchEvent;
-import org.jusecase.ui.touch.TouchPhase;
+import org.jusecase.ui.input.TouchEvent;
+import org.jusecase.ui.input.TouchPhase;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -31,7 +33,15 @@ public class Ui extends Element {
         }
     }
 
-    public void process(TouchEvent touchEvent) {
+    public void process(Event event) {
+        if (event instanceof TouchEvent) {
+            process((TouchEvent)event);
+        } else if (event instanceof ScrollEvent) {
+            process((ScrollEvent)event);
+        }
+    }
+
+    private void process(TouchEvent touchEvent) {
         if (touchEvent.phase == TouchPhase.Hover) {
             Element hoveredElement = getHoveredElement(touchEvent.id);
             visitTopDown(Element.class, element -> processHover(touchEvent, hoveredElement, element));
@@ -77,13 +87,20 @@ public class Ui extends Element {
         return false;
     }
 
+    private void process(ScrollEvent scrollEvent) {
+        Element hoveredElement = getHoveredElement(scrollEvent.id);
+        if (hoveredElement != null) {
+            scrollEvent.element = hoveredElement;
+            hoveredElement.onScroll.dispatch(s -> s.onScroll(scrollEvent));
+        }
+    }
+
     private boolean isElementTouched(Element element, TouchEvent touchEvent) {
         return element.isTouchable() && element.hitTest(touchEvent.x, touchEvent.y);
     }
 
-
-    public void process(List<TouchEvent> touchEvents) {
-        touchEvents.forEach(this::process);
+    public void process(List<? extends Event> events) {
+        events.forEach(this::process);
     }
 
     List<Element> getTouchedElements() {

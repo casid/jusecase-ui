@@ -3,7 +3,7 @@ package org.jusecase.ui.elements;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.jusecase.ui.UiTest;
-import org.jusecase.ui.touch.TouchPhase;
+import org.jusecase.ui.input.TouchPhase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +23,7 @@ public class Button_OverlapTest extends UiTest {
         givenTouchEvent(125, 125, TouchPhase.Move); // Move over to button 2, button 1 will still be pressed
         givenTouchEvent(125, 125, TouchPhase.End); // Release over button 2
 
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
 
         assertThat(button1.isPressed()).isFalse();
     }
@@ -33,7 +33,7 @@ public class Button_OverlapTest extends UiTest {
         givenTouchEvent(105, 105, TouchPhase.Hover);
         givenTouchEvent(125, 125, TouchPhase.Hover);
 
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
 
         assertThat(button1.isHovered()).isFalse();
         assertThat(button2.isHovered()).isTrue();
@@ -45,7 +45,7 @@ public class Button_OverlapTest extends UiTest {
         givenTouchEvent(125, 125, TouchPhase.Hover);
         givenTouchEvent(126, 125, TouchPhase.Hover);
 
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
 
         assertThat(button1.isHovered()).isFalse();
         assertThat(button2.isHovered()).isTrue();

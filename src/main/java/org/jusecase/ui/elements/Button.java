@@ -8,8 +8,8 @@ import org.jusecase.ui.font.Align;
 import org.jusecase.ui.signal.OnClick;
 import org.jusecase.ui.style.ButtonStyle;
 import org.jusecase.ui.style.Style;
-import org.jusecase.ui.touch.TouchEvent;
-import org.jusecase.ui.touch.TouchPhase;
+import org.jusecase.ui.input.TouchEvent;
+import org.jusecase.ui.input.TouchPhase;
 
 public class Button extends Element {
     public final Signal<OnClick> onClick = new Signal<>();

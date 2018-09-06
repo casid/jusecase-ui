@@ -3,7 +3,7 @@ package org.jusecase.ui.elements;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.jusecase.ui.UiTest;
-import org.jusecase.ui.touch.TouchPhase;
+import org.jusecase.ui.input.TouchPhase;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class ButtonTest extends UiTest {
         givenTouchEvent(101, 10, TouchPhase.Begin);
         givenTouchEvent(101, 10, TouchPhase.End);
 
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
 
         assertThat(buttonClickEvents).isEmpty();
     }
@@ -39,7 +39,7 @@ public class ButtonTest extends UiTest {
         givenTouchEvent(60, 10, TouchPhase.Begin);
         givenTouchEvent(60, 10, TouchPhase.End);
 
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
 
         assertThat(buttonClickEvents).hasSize(1);
     }
@@ -50,7 +50,7 @@ public class ButtonTest extends UiTest {
         givenTouchEvent(200, 200, TouchPhase.Move);
         givenTouchEvent(60, 10, TouchPhase.End);
 
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
 
         assertThat(buttonClickEvents).hasSize(1);
     }
@@ -61,7 +61,7 @@ public class ButtonTest extends UiTest {
         givenTouchEvent(200, 200, TouchPhase.Move);
         givenTouchEvent(200, 200, TouchPhase.End);
 
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
 
         assertThat(buttonClickEvents).isEmpty();
         assertThat(button.isPressed()).isFalse();
@@ -76,7 +76,7 @@ public class ButtonTest extends UiTest {
         givenTouchEvent(1, 60, 10, TouchPhase.End);
         givenTouchEvent(2, 200, 10, TouchPhase.End);
 
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
 
         assertThat(buttonClickEvents).hasSize(1);
     }
@@ -84,7 +84,7 @@ public class ButtonTest extends UiTest {
     @Test
     public void buttonDown_hit() {
         givenTouchEvent(60, 10, TouchPhase.Begin);
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
         assertThat(buttonClickEvents).isEmpty();
     }
 
@@ -92,13 +92,13 @@ public class ButtonTest extends UiTest {
     public void focusList_noDanglingReferences() {
         // Cause entry in focused elements
         givenTouchEvent(60, 10, TouchPhase.Begin);
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
 
         // Clear all references to our button and keep a week reference for sanity checking
         WeakReference<Button> reference = new WeakReference<>(button);
         ui.remove(button);
         button = null;
-        touchEvents.clear();
+        events.clear();
 
         System.gc();
 
@@ -110,28 +110,28 @@ public class ButtonTest extends UiTest {
     @Test
     public void buttonUp_hit() {
         givenTouchEvent(60, 10, TouchPhase.End);
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
         assertThat(buttonClickEvents).isEmpty();
     }
 
     @Test
     public void buttonClick_move() {
         givenTouchEvent(60, 10, TouchPhase.Move);
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
         assertThat(buttonClickEvents).isEmpty();
     }
 
     @Test
     public void buttonHover_miss() {
         givenTouchEvent(101, 10, TouchPhase.Hover);
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
         assertThat(button.isHovered()).isFalse();
     }
 
     @Test
     public void buttonHover() {
         givenTouchEvent(60, 10, TouchPhase.Hover);
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
         assertThat(button.isHovered()).isTrue();
     }
 
@@ -140,7 +140,7 @@ public class ButtonTest extends UiTest {
         givenTouchEvent(60, 10, TouchPhase.Hover);
         givenTouchEvent(61, 10, TouchPhase.Hover);
 
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
 
         assertThat(button.isHovered()).isTrue();
     }
@@ -148,11 +148,11 @@ public class ButtonTest extends UiTest {
     @Test
     public void buttonHoverEnd() {
         givenTouchEvent(60, 10, TouchPhase.Hover);
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
         assertThat(button.isHovered()).isTrue();
 
         givenTouchEvent(101, 10, TouchPhase.Hover);
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
         assertThat(button.isHovered()).isFalse();
     }
 }

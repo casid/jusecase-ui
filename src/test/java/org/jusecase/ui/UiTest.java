@@ -1,8 +1,10 @@
 package org.jusecase.ui;
 
 import org.jusecase.scenegraph.node2d.Node2d;
-import org.jusecase.ui.touch.TouchEvent;
-import org.jusecase.ui.touch.TouchPhase;
+import org.jusecase.ui.input.Event;
+import org.jusecase.ui.input.ScrollEvent;
+import org.jusecase.ui.input.TouchEvent;
+import org.jusecase.ui.input.TouchPhase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class UiTest {
     protected Ui ui = new Ui();
-    protected List<TouchEvent> touchEvents = new ArrayList<>();
+    protected List<Event> events = new ArrayList<>();
 
     protected void givenTouchEvent(float x, float y, TouchPhase phase) {
         givenTouchEvent(0, x, y, phase);
@@ -23,11 +25,18 @@ public abstract class UiTest {
         touchEvent.x = x;
         touchEvent.y = y;
         touchEvent.phase = phase;
-        touchEvents.add(touchEvent);
+        events.add(touchEvent);
     }
 
-    protected void whenTouchEventsAreProcessed() {
-        ui.process(touchEvents);
+    protected void givenScrollEvent(float deltaX, float deltaY) {
+        ScrollEvent scrollEvent = new ScrollEvent();
+        scrollEvent.deltaX = deltaX;
+        scrollEvent.deltaY = deltaY;
+        events.add(scrollEvent);
+    }
+
+    protected void whenEventsAreProcessed() {
+        ui.process(events);
     }
 
     protected void thenTouchedElementsAreEmpty() {

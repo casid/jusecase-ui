@@ -6,7 +6,7 @@ import org.jusecase.ui.elements.Button;
 import org.jusecase.ui.elements.Element;
 import org.jusecase.ui.style.ButtonStyle;
 import org.jusecase.ui.style.Style;
-import org.jusecase.ui.touch.TouchPhase;
+import org.jusecase.ui.input.TouchPhase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -129,7 +129,7 @@ public class Ui_StyleTest extends UiTest {
 
         assertThat(parent.getChild(parent.getChildCount() - 1)).isSameAs(child);
 
-        whenTouchEventsAreProcessed();
+        whenEventsAreProcessed();
 
         assertThat(parent.getChild(parent.getChildCount() - 1)).isSameAs(child);
     }

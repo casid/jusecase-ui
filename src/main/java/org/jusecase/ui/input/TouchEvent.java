@@ -1,8 +1,8 @@
-package org.jusecase.ui.touch;
+package org.jusecase.ui.input;
 
 import org.jusecase.ui.elements.Element;
 
-public class TouchEvent {
+public class TouchEvent extends Event {
     public long id;
     public float x;
     public float y;
