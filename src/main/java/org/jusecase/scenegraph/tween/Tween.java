@@ -2,6 +2,8 @@ package org.jusecase.scenegraph.tween;
 
 import org.jusecase.scenegraph.tween.animations.Animation;
 import org.jusecase.scenegraph.tween.animations.QuadraticOut;
+import org.jusecase.scenegraph.tween.listeners.OnComplete;
+import org.jusecase.scenegraph.tween.listeners.OnUpdate;
 import org.jusecase.scenegraph.tween.properties.Property;
 
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ public class Tween {
     private float duration = 1.0f;
     private Animation animation = QuadraticOut.animation;
     private final List<Property> properties = new ArrayList<>();
+    private OnUpdate onUpdate;
+    private OnComplete onComplete;
 
     private float time;
 
@@ -31,20 +35,37 @@ public class Tween {
     }
 
     public Tween property(Property property) {
-        properties.add(property);
+        this.properties.add(property);
         return this;
+    }
+
+    public void onUpdate(OnUpdate onUpdate) {
+        this.onUpdate = onUpdate;
+    }
+
+    public void onComplete(OnComplete onComplete) {
+        this.onComplete = onComplete;
     }
 
     public void update(float dt) {
         time += dt;
-        if (time > duration) {
+        if (time >= duration) {
             time = duration;
+
+            if (onComplete != null) {
+                onComplete.onComplete();
+                onComplete = null;
+            }
         }
 
         float t = animation.interpolate(time / duration);
 
         for (Property property : properties) {
             property.apply(t);
+        }
+
+        if (onUpdate != null) {
+            onUpdate.onUpdate(t);
         }
     }
 

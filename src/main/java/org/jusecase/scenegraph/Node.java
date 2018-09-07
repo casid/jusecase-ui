@@ -82,6 +82,24 @@ public class Node {
         return children.indexOf(child);
     }
 
+    public void bringToFront(Node child) {
+        setChildIndex(child, getChildCount() - 1);
+    }
+
+    public void sendToBack(Node child) {
+        setChildIndex(child, 0);
+    }
+
+    public void setChildIndex(Node child, int index) {
+        if (children == null) {
+            return;
+        }
+
+        if (children.remove(child)) {
+            children.add(index, child);
+        }
+    }
+
     public Node getSibling(Node child, int indexOffset) {
         int childIndex = getChildIndex(child);
         if (childIndex < 0) {
