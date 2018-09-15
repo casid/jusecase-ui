@@ -3,16 +3,14 @@ package org.jusecase.ui.elements;
 import org.jusecase.scenegraph.Node;
 import org.jusecase.signals.Signal;
 import org.jusecase.ui.Ui;
-import org.jusecase.ui.signal.OnScroll;
+import org.jusecase.ui.signal.*;
 import org.jusecase.ui.style.Style;
-import org.jusecase.ui.signal.OnHover;
-import org.jusecase.ui.signal.OnTouch;
 import org.jusecase.scenegraph.node2d.Node2d;
 
 public class Element extends Node2d {
-    public final Signal<OnTouch> onTouch = new Signal<>();
-    public final Signal<OnHover> onHover = new Signal<>();
-    public final Signal<OnScroll> onScroll = new Signal<>();
+    public final OnTouch onTouch = new OnTouch();
+    public final OnHover onHover = new OnHover();
+    public final OnScroll onScroll = new OnScroll();
 
     private Ui ui;
     private Style style;

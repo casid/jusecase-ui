@@ -62,7 +62,7 @@ public class Ui extends Element {
             }
 
             touchEvent.element = element;
-            element.onTouch.dispatch(s -> s.onTouch(touchEvent));
+            element.onTouch.dispatch(touchEvent);
             return touchedElement == null || element == touchedElement;
         }
 
@@ -72,16 +72,16 @@ public class Ui extends Element {
     private boolean processHover(TouchEvent touchEvent, Element hoveredElement, Element element) {
         if (isElementTouched(element, touchEvent)) {
             if (hoveredElement != null) {
-                hoveredElement.onHover.dispatch(s -> s.onHover(hoveredElement, false));
+                hoveredElement.onHover.dispatch(hoveredElement, false);
             }
 
             hoveredElementsByTouchId.put(touchEvent.id, new WeakReference<>(element));
-            element.onHover.dispatch(s -> s.onHover(element, true));
+            element.onHover.dispatch(element, true);
 
             return true;
         } else if (element == hoveredElement) {
             hoveredElementsByTouchId.remove(touchEvent.id);
-            element.onHover.dispatch(s -> s.onHover(element, false));
+            element.onHover.dispatch(element, false);
         }
 
         return false;
@@ -91,7 +91,7 @@ public class Ui extends Element {
         Element hoveredElement = getHoveredElement(scrollEvent.id);
         if (hoveredElement != null) {
             scrollEvent.element = hoveredElement;
-            hoveredElement.onScroll.dispatch(s -> s.onScroll(scrollEvent));
+            hoveredElement.onScroll.dispatch(scrollEvent);
         }
     }
 

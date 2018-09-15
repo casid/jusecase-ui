@@ -1,7 +1,7 @@
 package org.jusecase;
 
 import org.jusecase.signals.Signal;
-import org.jusecase.ui.signal.OnResize;
+import org.jusecase.ui.signal.OnResizeListener;
 
 public interface ApplicationBackend {
     void exit();
@@ -9,5 +9,5 @@ public interface ApplicationBackend {
     int getWidth();
     int getHeight();
 
-    Signal<OnResize> onResize();
+    Signal<OnResizeListener> onResize();
 }
