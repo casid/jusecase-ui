@@ -40,6 +40,14 @@ public class Node2d extends Node {
         return getGlobalMatrixInverse().transformPoint(x, y, result);
     }
 
+    public Vector2 localToGlobal(Vector2 position, Vector2 result) {
+        return localToGlobal(position.x, position.y, result);
+    }
+
+    public Vector2 localToGlobal(float x, float y, Vector2 result) {
+        return getGlobalMatrix().transformPoint(x, y, result);
+    }
+
     @Override
     public void add(Node node, int index) {
         super.add(node, index);
@@ -47,6 +55,10 @@ public class Node2d extends Node {
         if (node instanceof Node2d) {
             ((Node2d)node).resetMatrices();
         }
+    }
+
+    public Node2d setPosition(Vector2 p) {
+        return setPosition(p.x, p.y);
     }
 
     public Node2d setPosition(float x, float y) {
