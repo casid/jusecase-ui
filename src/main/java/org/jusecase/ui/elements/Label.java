@@ -12,7 +12,6 @@ public class Label extends Element {
 
     private final Text text;
     private float verticalAlign;
-    private Color color;
 
     public Label(Font font) {
         if (font instanceof BitmapFont) {
@@ -78,10 +77,10 @@ public class Label extends Element {
     }
 
     public void setColor(Color color) {
-        this.color = color;
+        text.setColor(color);
     }
 
     public Color getColor() {
-        return color;
+        return text.getColor();
     }
 }

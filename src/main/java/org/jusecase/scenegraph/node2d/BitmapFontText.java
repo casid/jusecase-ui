@@ -46,6 +46,7 @@ public class BitmapFontText extends Text {
                 BitmapFontCharacter character = bitmapFont.getCharacter(currentCharacter);
                 if (character != null) {
                     Image image = new Image(character.texture);
+                    image.setColor(color);
                     line.add(image.setPosition(x + kerning + character.offsetX, y + character.offsetY));
 
                     x += character.advanceX + kerning;

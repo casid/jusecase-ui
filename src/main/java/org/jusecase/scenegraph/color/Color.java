@@ -2,6 +2,7 @@ package org.jusecase.scenegraph.color;
 
 public final class Color implements Cloneable {
     public static final Color WHITE = new Color(1.0f);
+    public static final Color BLACK = new Color(0.0f);
 
     public static Color hsb(float hue, float saturation, float brightness, float alpha) {
         float r = 0, g = 0, b = 0;

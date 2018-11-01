@@ -2,6 +2,7 @@ package org.jusecase.ui.elements;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.jusecase.scenegraph.color.Color;
 import org.jusecase.scenegraph.node2d.Image;
 import org.jusecase.scenegraph.math.Vector2;
 import org.jusecase.scenegraph.texture.TextureMock;
@@ -167,6 +168,21 @@ class Label_BitmapFontTest extends UiTest {
         label.setHeight(100);
 
         thenNodeIsAt(getImage(0), 0, 43, 10, 20);
+    }
+
+    @Test
+    void color_default() {
+        whenTextIsSet("A");
+
+        assertThat(getImage(0).getColor()).isEqualTo(Color.WHITE);
+    }
+
+    @Test
+    void color_black() {
+        whenTextIsSet("A");
+        label.setColor(Color.BLACK);
+
+        assertThat(getImage(0).getColor()).isEqualTo(Color.BLACK);
     }
 
     private void givenEmptyFont() {
