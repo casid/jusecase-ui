@@ -1,12 +1,70 @@
 package org.jusecase.scenegraph.color;
 
 public final class Color implements Cloneable {
+    public static final Color WHITE = new Color(1.0f);
+
+    public static Color hsb(float hue, float saturation, float brightness, float alpha) {
+        float r = 0, g = 0, b = 0;
+
+        if (saturation == 0) {
+            r = g = b = brightness;
+        } else {
+            float h = (hue - (float)Math.floor(hue)) * 6.0f;
+            float f = h - (float)java.lang.Math.floor(h);
+            float p = brightness * (1.0f - saturation);
+            float q = brightness * (1.0f - saturation * f);
+            float t = brightness * (1.0f - (saturation * (1.0f - f)));
+            switch ((int) h) {
+                case 0:
+                    r = brightness;
+                    g = t;
+                    b = p;
+                    break;
+                case 1:
+                    r = q;
+                    g = brightness;
+                    b = p;
+                    break;
+                case 2:
+                    r = p;
+                    g = brightness;
+                    b = t;
+                    break;
+                case 3:
+                    r = p;
+                    g = q;
+                    b = brightness;
+                    break;
+                case 4:
+                    r = t;
+                    g = p;
+                    b = brightness;
+                    break;
+                case 5:
+                    r = brightness;
+                    g = p;
+                    b = q;
+                    break;
+            }
+        }
+
+        return new Color(r, g, b, alpha);
+    }
+
+    public static Color random() {
+        return new Color((float) Math.random(), (float) Math.random(), (float) Math.random());
+    }
+
+    public static Color randomHue() {
+        return hsb((float)Math.random(), 1, 1, 1);
+    }
+
     private static final float scale = 1.0f / 255.0f;
 
-    public float r;
-    public float g;
-    public float b;
-    public float a;
+    public final float r;
+    public final float g;
+    public final float b;
+    public final float a;
 
     public Color() {
         this(0, 1);
@@ -70,70 +128,6 @@ public final class Color implements Cloneable {
     @Override
     public String toString() {
         return "Color{" + "r=" + r + "g=" + g + "b=" + b + "a=" + a + "}";
-    }
-
-    public void set(Color color) {
-        r = color.r;
-        g = color.g;
-        b = color.b;
-        a = color.a;
-    }
-
-    public void setHsb(float hue, float saturation, float brightness) {
-        if (saturation == 0) {
-            r = g = b = brightness;
-        } else {
-            float h = (hue - (float)Math.floor(hue)) * 6.0f;
-            float f = h - (float)java.lang.Math.floor(h);
-            float p = brightness * (1.0f - saturation);
-            float q = brightness * (1.0f - saturation * f);
-            float t = brightness * (1.0f - (saturation * (1.0f - f)));
-            switch ((int) h) {
-                case 0:
-                    r = brightness;
-                    g = t;
-                    b = p;
-                    break;
-                case 1:
-                    r = q;
-                    g = brightness;
-                    b = p;
-                    break;
-                case 2:
-                    r = p;
-                    g = brightness;
-                    b = t;
-                    break;
-                case 3:
-                    r = p;
-                    g = q;
-                    b = brightness;
-                    break;
-                case 4:
-                    r = t;
-                    g = p;
-                    b = brightness;
-                    break;
-                case 5:
-                    r = brightness;
-                    g = p;
-                    b = q;
-                    break;
-            }
-        }
-
-    }
-
-    public Color random() {
-        r = (float) Math.random();
-        g = (float) Math.random();
-        b = (float) Math.random();
-        return this;
-    }
-
-    public Color randomHue() {
-        setHsb((float)Math.random(), 1, 1);
-        return this;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package org.jusecase.ui.elements;
 
+import org.jusecase.scenegraph.color.Color;
 import org.jusecase.scenegraph.node2d.BitmapFontText;
 import org.jusecase.scenegraph.node2d.Node2d;
 import org.jusecase.scenegraph.node2d.Text;
@@ -11,6 +12,7 @@ public class Label extends Element {
 
     private final Text text;
     private float verticalAlign;
+    private Color color;
 
     public Label(Font font) {
         if (font instanceof BitmapFont) {
@@ -73,5 +75,13 @@ public class Label extends Element {
 
     public float getVerticalAlign() {
         return verticalAlign;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }
