@@ -1,6 +1,5 @@
 package org.jusecase.scenegraph.texture;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
