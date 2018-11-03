@@ -10,8 +10,8 @@ public final class Color implements Cloneable {
         if (saturation == 0) {
             r = g = b = brightness;
         } else {
-            float h = (hue - (float)Math.floor(hue)) * 6.0f;
-            float f = h - (float)java.lang.Math.floor(h);
+            float h = (hue - (float) Math.floor(hue)) * 6.0f;
+            float f = h - (float) java.lang.Math.floor(h);
             float p = brightness * (1.0f - saturation);
             float q = brightness * (1.0f - saturation * f);
             float t = brightness * (1.0f - (saturation * (1.0f - f)));
@@ -57,7 +57,7 @@ public final class Color implements Cloneable {
     }
 
     public static Color randomHue() {
-        return hsb((float)Math.random(), 1, 1, 1);
+        return hsb((float) Math.random(), 1, 1, 1);
     }
 
     private static final float scale = 1.0f / 255.0f;
@@ -138,5 +138,23 @@ public final class Color implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Color sub(Color c) {
+        return new Color(
+                r - c.r,
+                g - c.g,
+                b - c.b,
+                a - c.a
+        );
+    }
+
+    public Color lerpDelta(Color d, float t) {
+        return new Color(
+                r + t * d.r,
+                g + t * d.g,
+                b + t * d.b,
+                a + t * d.a
+        );
     }
 }
