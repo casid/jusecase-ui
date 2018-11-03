@@ -5,5 +5,6 @@ public interface Texture {
     int getWidth();
     int getHeight();
     TexCoords getTexCoords();
+    TextureFrame getFrame();
     void dispose();
 }

@@ -16,7 +16,11 @@ public class TextureAtlas {
     }
 
     public void put(String name, int x, int y, int w, int h) {
-        subTextures.put(name, new SubTexture(texture, x, y, w, h));
+        put(name, x, y, w, h, null);
+    }
+
+    public void put(String name, int x, int y, int w, int h, TextureFrame textureFrame) {
+        subTextures.put(name, new SubTexture(texture, x, y, w, h, textureFrame));
     }
 
     public void dispose() {

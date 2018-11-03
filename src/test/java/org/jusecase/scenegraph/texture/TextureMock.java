@@ -36,6 +36,11 @@ public class TextureMock implements Texture {
     }
 
     @Override
+    public TextureFrame getFrame() {
+        return null;
+    }
+
+    @Override
     public void dispose() {
         disposed = true;
     }
