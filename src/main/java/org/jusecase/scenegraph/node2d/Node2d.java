@@ -27,9 +27,17 @@ public class Node2d extends Node {
 
     private static final Vector2 HIT_TEST = new Vector2();
 
+    public boolean hitTest(Vector2 p) {
+        return hitTest(p.x, p.y);
+    }
+
     public boolean hitTest(float x, float y) {
         Vector2 p = globalToLocal(x, y, HIT_TEST);
-        return p.x >= 0 && p.x <= this.width && p.y >= 0.0 && p.y <= this.height;
+        return hitTestLocal(p.x, p.y);
+    }
+
+    public boolean hitTestLocal(float x, float y) {
+        return x >= 0 && x <= this.width && y >= 0.0 && y <= this.height;
     }
 
     public Vector2 globalToLocal(float x, float y) {
