@@ -43,6 +43,7 @@ public class Quad extends Node2d implements DrawHashable {
     @Override
     public void hash(DrawHash hash) {
         hash.add(getGlobalMatrix());
+        hash.add(blendMode);
         hash.add(color);
         hash.add(alpha);
     }
