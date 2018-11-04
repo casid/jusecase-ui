@@ -5,14 +5,14 @@ import org.jusecase.scenegraph.texture.TextureAtlas;
 import org.jusecase.scenegraph.tween.Tweens;
 import org.jusecase.scenegraph.tween.properties.IntProperty;
 
-public class ImageAnimation extends Node2d {
+public class AnimatedImage extends Node2d {
     private final Tweens tweens;
 
     private Image image;
     private Sequence currentSequence;
     private int currentFrame;
 
-    public ImageAnimation(Tweens tweens, Sequence sequence) {
+    public AnimatedImage(Tweens tweens, Sequence sequence) {
         this.tweens = tweens;
         setCurrentSequence(sequence);
     }
