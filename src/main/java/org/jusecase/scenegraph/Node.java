@@ -258,6 +258,17 @@ public class Node {
         return nodeClass.isInstance(this) && visitor.test(nodeClass.cast(this));
     }
 
+    public <T extends Node> T findDirectChild(Class<T> nodeClass, Predicate<T> predicate) {
+        if (children != null) {
+            for (Node child : children) {
+                if (nodeClass.isInstance(child) && predicate.test(nodeClass.cast(child))) {
+                    return nodeClass.cast(child);
+                }
+            }
+        }
+        return null;
+    }
+
     public Node getParent() {
         return parent;
     }
