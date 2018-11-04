@@ -1,5 +1,7 @@
 package org.jusecase.scenegraph.texture;
 
+import org.jusecase.scenegraph.math.DrawHash;
+
 public class SubTexture implements Texture {
 
     private final Texture texture;
@@ -59,5 +61,14 @@ public class SubTexture implements Texture {
     @Override
     public void dispose() {
         // Nothing to dispose
+    }
+
+    @Override
+    public void hash(DrawHash hash) {
+        hash.add(texture);
+        hash.add(texCoords);
+        hash.add(frame);
+        hash.add(width);
+        hash.add(height);
     }
 }

@@ -1,6 +1,8 @@
 package org.jusecase.scenegraph.texture;
 
-public interface Texture {
+import org.jusecase.scenegraph.math.DrawHashable;
+
+public interface Texture extends DrawHashable {
     int getId();
     int getWidth();
     int getHeight();

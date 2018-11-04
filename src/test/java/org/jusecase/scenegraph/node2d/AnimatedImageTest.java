@@ -105,6 +105,7 @@ class AnimatedImageTest {
 
         tweens.update(1);
 
+        assertThat(animatedImage.isPlaying()).isFalse();
         assertThat(getCurrentTexture().getFrame().left).isEqualTo(0);
     }
 

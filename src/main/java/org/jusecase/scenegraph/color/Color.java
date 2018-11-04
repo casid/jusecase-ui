@@ -1,6 +1,9 @@
 package org.jusecase.scenegraph.color;
 
-public final class Color implements Cloneable {
+import org.jusecase.scenegraph.math.DrawHash;
+import org.jusecase.scenegraph.math.DrawHashable;
+
+public final class Color implements Cloneable, DrawHashable {
     public static final Color WHITE = new Color(1.0f);
     public static final Color BLACK = new Color(0.0f);
 
@@ -156,5 +159,13 @@ public final class Color implements Cloneable {
                 b + t * d.b,
                 a + t * d.a
         );
+    }
+
+    @Override
+    public void hash(DrawHash hash) {
+        hash.add(r);
+        hash.add(g);
+        hash.add(b);
+        hash.add(a);
     }
 }

@@ -40,8 +40,9 @@ public class AnimatedImage extends Node2d {
             image = new Image(getCurrentTexture());
             add(image);
         } else {
-            image.setTexture(getCurrentTexture());
             tweens.remove(image);
+            playing = false;
+            image.setTexture(getCurrentTexture());
         }
 
         image.setPivot(sequence.pivotX, sequence.pivotY);

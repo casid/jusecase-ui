@@ -53,11 +53,6 @@ public class Tween {
         time += dt;
         if (time >= duration) {
             time = duration;
-
-            if (onComplete != null) {
-                onComplete.onComplete();
-                onComplete = null;
-            }
         }
 
         float t = animation.interpolate(time / duration);
@@ -68,6 +63,11 @@ public class Tween {
 
         if (onUpdate != null) {
             onUpdate.onUpdate(t);
+        }
+
+        if (time == duration && onComplete != null) {
+            onComplete.onComplete();
+            onComplete = null;
         }
     }
 

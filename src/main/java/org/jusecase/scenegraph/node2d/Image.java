@@ -1,5 +1,6 @@
 package org.jusecase.scenegraph.node2d;
 
+import org.jusecase.scenegraph.math.DrawHash;
 import org.jusecase.scenegraph.texture.Texture;
 
 public class Image extends Quad {
@@ -16,5 +17,11 @@ public class Image extends Quad {
 
     public Texture getTexture() {
         return texture;
+    }
+
+    @Override
+    public void hash(DrawHash hash) {
+        super.hash(hash);
+        hash.add(texture);
     }
 }

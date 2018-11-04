@@ -1,7 +1,7 @@
 package org.jusecase.scenegraph.math;
 
 
-public final class Matrix3x2 implements Cloneable {
+public final class Matrix3x2 implements Cloneable, DrawHashable {
 
     public static Matrix3x2 multiply(Matrix3x2 a, Matrix3x2 b) {
         return multiply(a, b, new Matrix3x2());
@@ -157,5 +157,15 @@ public final class Matrix3x2 implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void hash(DrawHash hash) {
+        hash.add(a);
+        hash.add(b);
+        hash.add(c);
+        hash.add(d);
+        hash.add(tx);
+        hash.add(ty);
     }
 }

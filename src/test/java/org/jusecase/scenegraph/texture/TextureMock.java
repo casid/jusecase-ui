@@ -1,6 +1,6 @@
 package org.jusecase.scenegraph.texture;
 
-import org.assertj.core.api.Assertions;
+import org.jusecase.scenegraph.math.DrawHash;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -47,5 +47,9 @@ public class TextureMock implements Texture {
 
     public void thenTextureIsDisposed() {
         assertThat(disposed).isTrue();
+    }
+
+    @Override
+    public void hash(DrawHash hash) {
     }
 }

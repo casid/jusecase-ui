@@ -1,9 +1,11 @@
 package org.jusecase.scenegraph.node2d;
 
 import org.jusecase.scenegraph.color.Color;
+import org.jusecase.scenegraph.math.DrawHash;
+import org.jusecase.scenegraph.math.DrawHashable;
 import org.jusecase.scenegraph.render.BlendMode;
 
-public class Quad extends Node2d {
+public class Quad extends Node2d implements DrawHashable {
     private Color color = Color.WHITE;
     private BlendMode blendMode = BlendMode.Default;
 
@@ -27,5 +29,11 @@ public class Quad extends Node2d {
 
     public void setBlendMode(BlendMode blendMode) {
         this.blendMode = blendMode;
+    }
+
+    @Override
+    public void hash(DrawHash hash) {
+        hash.add(getGlobalMatrix());
+        hash.add(getColor());
     }
 }
