@@ -7,6 +7,7 @@ import org.jusecase.scenegraph.render.BlendMode;
 
 public class Quad extends Node2d implements DrawHashable {
     private Color color = Color.WHITE;
+    private float alpha = 1.0f;
     private BlendMode blendMode = BlendMode.Default;
 
     public Color getColor() {
@@ -31,9 +32,18 @@ public class Quad extends Node2d implements DrawHashable {
         this.blendMode = blendMode;
     }
 
+    public float getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
+    }
+
     @Override
     public void hash(DrawHash hash) {
         hash.add(getGlobalMatrix());
-        hash.add(getColor());
+        hash.add(color);
+        hash.add(alpha);
     }
 }

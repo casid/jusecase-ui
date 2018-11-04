@@ -78,6 +78,14 @@ public class AnimatedImage extends Node2d {
         this.image.setTexture(getCurrentTexture());
     }
 
+    public void setAlpha(float alpha) {
+        image.setAlpha(alpha);
+    }
+
+    public float getAlpha() {
+        return image.getAlpha();
+    }
+
     public Sequence getCurrentSequence() {
         return currentSequence;
     }
