@@ -39,12 +39,14 @@ public class Tween {
         return this;
     }
 
-    public void onUpdate(OnUpdate onUpdate) {
+    public Tween onUpdate(OnUpdate onUpdate) {
         this.onUpdate = onUpdate;
+        return this;
     }
 
-    public void onComplete(OnComplete onComplete) {
+    public Tween onComplete(OnComplete onComplete) {
         this.onComplete = onComplete;
+        return this;
     }
 
     public void update(float dt) {

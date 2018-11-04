@@ -3,6 +3,7 @@ package org.jusecase.scenegraph.node2d;
 import org.jusecase.scenegraph.texture.Texture;
 import org.jusecase.scenegraph.texture.TextureAtlas;
 import org.jusecase.scenegraph.tween.Tweens;
+import org.jusecase.scenegraph.tween.animations.Linear;
 import org.jusecase.scenegraph.tween.properties.IntProperty;
 
 public class AnimatedImage extends Node2d {
@@ -11,6 +12,7 @@ public class AnimatedImage extends Node2d {
     private Image image;
     private Sequence currentSequence;
     private int currentFrame;
+    private boolean playing;
 
     public AnimatedImage(Tweens tweens, Sequence sequence) {
         this.tweens = tweens;
@@ -18,9 +20,16 @@ public class AnimatedImage extends Node2d {
     }
 
     public void play() {
+        playing = true;
         tweens.tween(image)
+                .animation(Linear.animation)
+                .onComplete(() -> playing = false)
                 .duration(currentSequence.frameCount / currentSequence.speedFactor)
                 .property(new IntProperty(currentFrame, currentSequence.frameCount, this::setCurrentFrame));
+    }
+
+    public boolean isPlaying() {
+        return playing;
     }
 
     public void setCurrentSequence(Sequence sequence) {

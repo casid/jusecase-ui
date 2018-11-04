@@ -26,9 +26,9 @@ class AnimatedImageTest {
         texture.givenSize(512, 1024);
         textureAtlas = new TextureAtlas(texture);
 
-        textureAtlas.put("running0000", 0, 0, 19, 20, new TextureFrame(1, 2, 2, 2));
-        textureAtlas.put("running0001", 20, 0, 18, 20, new TextureFrame(2, 2, 2, 2));
-        textureAtlas.put("running0002", 0, 20, 17, 20, new TextureFrame(3, 2, 2, 2));
+        textureAtlas.put("running0000", 0, 0, 20, 20, new TextureFrame(0, 2, 2, 2));
+        textureAtlas.put("running0001", 20, 0, 19, 20, new TextureFrame(1, 2, 2, 2));
+        textureAtlas.put("running0002", 0, 20, 18, 20, new TextureFrame(2, 2, 2, 2));
 
         tweens = new Tweens();
 
@@ -42,28 +42,38 @@ class AnimatedImageTest {
 
     @Test
     void initial() {
-        assertThat(getCurrentTexture().getFrame().left).isEqualTo(1);
+        assertThat(getCurrentTexture().getFrame().left).isEqualTo(0);
     }
 
     @Test
     void playing1() {
         animatedImage.play();
         tweens.update(1);
-        assertThat(getCurrentTexture().getFrame().left).isEqualTo(2);
+        assertThat(getCurrentTexture().getFrame().left).isEqualTo(1);
     }
 
     @Test
     void playing2() {
         animatedImage.play();
-        tweens.update(2);
-        assertThat(getCurrentTexture().getFrame().left).isEqualTo(3);
+        tweens.update(1);
+        tweens.update(1);
+        assertThat(getCurrentTexture().getFrame().left).isEqualTo(2);
     }
 
     @Test
     void playing3_stopsAtEnd() {
         animatedImage.play();
-        tweens.update(3);
-        assertThat(getCurrentTexture().getFrame().left).isEqualTo(3);
+
+        tweens.update(1);
+        assertThat(getCurrentTexture().getFrame().left).isEqualTo(1);
+        assertThat(animatedImage.isPlaying()).isTrue();
+
+        tweens.update(1);
+        assertThat(getCurrentTexture().getFrame().left).isEqualTo(2);
+
+        tweens.update(1);
+        assertThat(getCurrentTexture().getFrame().left).isEqualTo(2);
+        assertThat(animatedImage.isPlaying()).isFalse();
     }
 
     @Test
@@ -85,7 +95,7 @@ class AnimatedImageTest {
 
         tweens.update(0.5f);
 
-        assertThat(getCurrentTexture().getFrame().left).isEqualTo(2);
+        assertThat(getCurrentTexture().getFrame().left).isEqualTo(1);
     }
 
     @Test
@@ -95,7 +105,7 @@ class AnimatedImageTest {
 
         tweens.update(1);
 
-        assertThat(getCurrentTexture().getFrame().left).isEqualTo(1);
+        assertThat(getCurrentTexture().getFrame().left).isEqualTo(0);
     }
 
     @Test
