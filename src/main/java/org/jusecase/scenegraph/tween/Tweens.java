@@ -36,7 +36,7 @@ public class Tweens {
     }
 
     @SuppressWarnings("Java8CollectionRemoveIf")
-    private void remove(Object owner) {
+    public void remove(Object owner) {
         if (tweens.isEmpty()) {
             return;
         }

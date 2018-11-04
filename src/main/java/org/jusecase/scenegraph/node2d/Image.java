@@ -3,9 +3,13 @@ package org.jusecase.scenegraph.node2d;
 import org.jusecase.scenegraph.texture.Texture;
 
 public class Image extends Quad {
-    private final Texture texture;
+    private Texture texture;
 
     public Image(Texture texture) {
+        setTexture(texture);
+    }
+
+    public void setTexture(Texture texture) {
         this.texture = texture;
         setSize(texture.getWidth(), texture.getHeight());
     }
