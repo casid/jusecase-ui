@@ -77,6 +77,10 @@ public class AnimatedImage extends Node2d {
         this.image.setTexture(getCurrentTexture());
     }
 
+    public Sequence getCurrentSequence() {
+        return currentSequence;
+    }
+
     public static class Sequence {
         public String name;
         public TextureAtlas textureAtlas;
